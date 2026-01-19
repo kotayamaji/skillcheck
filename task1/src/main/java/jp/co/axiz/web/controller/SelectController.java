@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +21,8 @@ import jp.co.axiz.web.from.Selectform;
 import jp.co.axiz.web.from.UpdateForm;
 import jp.co.axiz.web.service.UserInfoService;
 import jp.co.axiz.web.util.ParamUtil;
+
+
 
 @Controller
 public class SelectController {
@@ -119,7 +120,29 @@ public class SelectController {
         session.setAttribute("updInpBackUrl", "selectResult");
 
         return "updateInput";
-
     }
+
+    @PostMapping(value="/seletctResult",params="delete")
+    public String delete(@ModelAttribute("SelectResult") SelectResultForm form,Model model){
+        Integer[] userIds = form.getUserId();
+        String errMsg = null;
+        
+        if(userIds == null || userIds.length == 0){
+            errMsg = messageSource.getMessage("delete.nosel.error", null,Locale.getDefault());
+        }
+
+        if(errMsg != null ){
+            model.addAttribute("errMsg", errMsg);
+            return "selectResult";
+        }
+
+        List<UserInfo> userList = userInfoService.findByUserIdMulti(userIds);
+
+        session.setAttribute("userIds", userIds);
+        session.setAttribute("deleteUserList", userList);
+
+        return "deleteConfirmSel";
+    }
+    
     
 }

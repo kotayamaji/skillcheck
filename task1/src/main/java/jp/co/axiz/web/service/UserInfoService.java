@@ -23,4 +23,6 @@ public interface UserInfoService {
     public void delete(int id);
 
     public UserInfo findByUserId(Integer integer);
+
+    public List<UserInfo> findByUserIdMulti(Integer[] userIds);
 }

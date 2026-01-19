@@ -20,4 +20,8 @@ public interface UserInfoDao {
     public UserInfo findByLoginIdExcludingUserId(String loginId, int excludingUserId);
 
     public void delete(Integer id);
+
+    public UserInfo findByUserId(Integer userId);
+
+    public List<UserInfo> findByUserIdMulti(Integer[] userIds);
 }

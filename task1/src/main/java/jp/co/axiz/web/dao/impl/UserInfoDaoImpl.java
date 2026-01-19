@@ -28,6 +28,8 @@ public class UserInfoDaoImpl implements UserInfoDao{
     private static final String SELECT_BY_LOGIN_ID_EXCLUDING_USER_ID = "SELECT user_id, login_id, user_name, telephone, password, r.role_id, role_name FROM user_info u JOIN role r ON u.role_id = r.role_id WHERE login_id = :loginId AND user_id <> :userId";
     private static final String DELETE ="DELETE FROM user_info WHERE user_id = :userId";
 
+    private static final String SELECT_BY_USER_ID = "SELECT user_id, login_id, user_name, telephone, password, r.role_id, role_name , create_datetime, update_datetime FROM user_info u JOIN role r ON u.role_id = r.role_id WHERE user_id = :userId";
+
 
     @Override
     public void update(UserInfo user) {
@@ -150,6 +152,32 @@ public class UserInfoDaoImpl implements UserInfoDao{
         param.addValue("userId", id);
 
         jdbcTemplate.update(DELETE, param);
+    }
+
+    @Override
+    public UserInfo findByUserId(Integer userId) {
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("userId", userId);
+
+        List<UserInfo> resultList = jdbcTemplate.query(SELECT_BY_USER_ID, param,
+                new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
+
+        return resultList.isEmpty() ? null : resultList.get(0);
+    }
+
+    @Override
+    public List<UserInfo> findByUserIdMulti(Integer[] userIds) {
+        ArrayList<UserInfo> list = new ArrayList<>();
+
+        if(userIds == null || userIds.length == 0){
+            return list;
+        }
+
+        List<String> condition = new ArrayList<String>();
+        int count = 0;
+
+        throw new UnsupportedOperationException("Unimplemented method 'findByUserIdMulti'");
+
     }
     
 }

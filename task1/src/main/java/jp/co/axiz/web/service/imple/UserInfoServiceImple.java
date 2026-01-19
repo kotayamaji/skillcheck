@@ -64,6 +64,16 @@ public class UserInfoServiceImple implements UserInfoService {
         userInfoDao.delete(id);
     }
 
+    @Override
+    public UserInfo findByUserId(Integer userId) {
+       return userInfoDao.findByUserId(userId);
+    }
+
+    @Override
+    public List<UserInfo> findByUserIdMulti(Integer[] userIds) {
+        return userInfoDao.findByUserIdMulti(userIds);
+    }
+
     
     
 }
