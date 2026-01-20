@@ -50,7 +50,7 @@ public class SelectController {
     }
 
     @GetMapping("/list")
-    public String insert(@Validated @ModelAttribute("selectForm")Selectform selectform,BindingResult bindingResult,Model model) {
+    public String insert(@Validated @ModelAttribute("selectForm")Selectform selectform,@ModelAttribute("SelectResult") SelectResultForm form,BindingResult bindingResult,Model model) {
         //セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
         if(sessionInfo.getLoginUser() == null){
@@ -136,10 +136,9 @@ public class SelectController {
             return "selectResult";
         }
 
-        List<UserInfo> userList = userInfoService.findByUserIdMulti(userIds);
+        userInfoService.findByUserIdMulti(userIds);
 
         session.setAttribute("userIds", userIds);
-        session.setAttribute("deleteUserList", userList);
 
         return "deleteConfirmSel";
     }

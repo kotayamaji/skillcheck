@@ -24,5 +24,5 @@ public interface UserInfoService {
 
     public UserInfo findByUserId(Integer integer);
 
-    public List<UserInfo> findByUserIdMulti(Integer[] userIds);
+    public void findByUserIdMulti(Integer[] userIds);
 }

@@ -70,8 +70,8 @@ public class UserInfoServiceImple implements UserInfoService {
     }
 
     @Override
-    public List<UserInfo> findByUserIdMulti(Integer[] userIds) {
-        return userInfoDao.findByUserIdMulti(userIds);
+    public void findByUserIdMulti(Integer[] userIds) {
+        userInfoDao.findByUserIdMulti(userIds);
     }
 
     

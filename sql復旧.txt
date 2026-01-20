@@ -1,0 +1,4 @@
+GRANT ALL PRIVILEGES ON *.* TO 'axizuser'@'localhost';
+
+ALTER TABLE `table` ADD COLUMN `column1` int(1) NOT NULL DEFAULT `0`,
+                    ADD COLUMN `column2` varchar(255) NOT NULL DEFAULT 'neko';

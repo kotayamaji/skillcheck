@@ -23,5 +23,5 @@ public interface UserInfoDao {
 
     public UserInfo findByUserId(Integer userId);
 
-    public List<UserInfo> findByUserIdMulti(Integer[] userIds);
+    public void findByUserIdMulti(Integer[] userIds);
 }

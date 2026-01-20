@@ -166,17 +166,20 @@ public class UserInfoDaoImpl implements UserInfoDao{
     }
 
     @Override
-    public List<UserInfo> findByUserIdMulti(Integer[] userIds) {
+    public void findByUserIdMulti(Integer[] userIds) {
+        MapSqlParameterSource param = new MapSqlParameterSource();
         ArrayList<UserInfo> list = new ArrayList<>();
-
+        
         if(userIds == null || userIds.length == 0){
-            return list;
+            return;
         }
 
-        List<String> condition = new ArrayList<String>();
-        int count = 0;
+        for (Integer userId : userIds) {
+            param.addValue("userId", userId);
 
-        throw new UnsupportedOperationException("Unimplemented method 'findByUserIdMulti'");
+            jdbcTemplate.update(DELETE, param);
+
+        }
 
     }
     
