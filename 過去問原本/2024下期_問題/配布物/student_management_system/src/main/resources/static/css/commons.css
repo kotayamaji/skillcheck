@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+fieldset {
+  border: none;
+}
+
+fieldset label {
+  display: inline-block;
+  width: 43px;
+}
+
+fieldset.label-60 label {
+  width: 60px;
+}
+
+fieldset.label-80 label {
+  width: 80px;
+}
+
+fieldset.label-100 label {
+  width: 100px;
+}
+
+fieldset div {
+  margin: 5px;
+}
+
+form~div,
+table~div {
+  margin-top: 10px;
+}
+
+table,
+table th,
+table td {
+  border: solid 1px;
+}
+
+.center {
+  text-align: center;
+}
+
+.required::after {
+  content: "※";
+  color: red;
+}
+
+.error {
+  color: red;
+}
+
+a.btn {
+  color: white;
+  text-align: center;
+  font-size: 21px;
+  font-weight: bold;
+  background-color: #87cefa;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 0px;
+  padding: 5px 20px 5px 20px;
+  text-decoration: none
+}
+
+.header-flex {
+  background-color: #d3d3d3;
+  height: 60px;
+  padding: 5px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-flex li {
+  padding: 10px;
+  text-align: center;
+}
+
+.header-flex li:nth-of-type(2) {
+  margin-right: auto;
+}
+
+.header-flex li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header-flex li button {
+  border: none;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
