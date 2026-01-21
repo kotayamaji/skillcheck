@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jp.co.example.controller.form.ProductForm;
+import jp.co.example.form.ProductForm;
 import jp.co.example.entity.Product;
 import jp.co.example.service.ProductService;
 

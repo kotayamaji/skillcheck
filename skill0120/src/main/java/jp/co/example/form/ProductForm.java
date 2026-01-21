@@ -1,4 +1,4 @@
-package jp.co.example.controller.form;
+package jp.co.example.form;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
