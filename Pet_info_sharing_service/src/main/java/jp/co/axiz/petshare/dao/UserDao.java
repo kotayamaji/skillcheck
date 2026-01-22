@@ -1,5 +1,8 @@
 package jp.co.axiz.petshare.dao;
 
+import java.util.List;
+
+import jp.co.axiz.petshare.entity.AnimalType;
 import jp.co.axiz.petshare.entity.User;
 
 /*
@@ -7,4 +10,6 @@ import jp.co.axiz.petshare.entity.User;
  */
 public interface UserDao {
     public User findByUserNameAndPassword(String userName, String password);
+
+    public List<AnimalType> findAnimalTypes();
 }

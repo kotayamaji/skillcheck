@@ -12,6 +12,8 @@ public class Pet {
     private String description;
     private Integer userId;
     private Boolean isDeleted;
+    private String dispName;
+    private String type;
 
     public Pet() {
     }
@@ -24,6 +26,22 @@ public class Pet {
         this.description = description;
         this.userId = userId;
         this.isDeleted = isDeleted;
+    }
+
+    public String getDispName() {
+        return dispName;
+    }
+
+    public void setDispName(String dispName) {
+        this.dispName = dispName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Integer getId() {

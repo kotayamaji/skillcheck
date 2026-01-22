@@ -1,5 +1,6 @@
 package jp.co.axiz.petshare.dao.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import jp.co.axiz.petshare.dao.UserDao;
+import jp.co.axiz.petshare.entity.AnimalType;
 import jp.co.axiz.petshare.entity.User;
 
 /*
@@ -24,6 +26,8 @@ public class UserDaoImpl implements UserDao {
             "FROM users " +
             "WHERE user_name =:user AND password = :password;";
 
+    private static final String SELECT_TYPE ="SELECT * FROM animal_types";
+
     /**
      * user_name、passwordによる検索
      */
@@ -37,6 +41,16 @@ public class UserDaoImpl implements UserDao {
                 new BeanPropertyRowMapper<User>(User.class));
 
         return resultList.isEmpty() ? null : resultList.get(0);
+    }
+
+    @Override
+    public List<AnimalType> findAnimalTypes() {
+        List<AnimalType> resultList = jdbcTemplate.query(SELECT_TYPE,
+                new BeanPropertyRowMapper<AnimalType>(AnimalType.class));
+        AnimalType all = new AnimalType(0 , "すべて"); 
+
+        resultList.add(0,all);
+        return resultList;
     }
 
 }

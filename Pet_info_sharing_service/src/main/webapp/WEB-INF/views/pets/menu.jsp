@@ -22,6 +22,9 @@
           <a href="/pets/menu"><fmt:message key="btn.menu" /></a>
         </li>
         <li>
+          <h1>${fn:escapeXml(sessionInfo.userInfo.dispName)}</h1>
+        </li>
+        <li>
           <form action="/logout" method="post">
             <button type="submit">
               <fmt:message key="btn.logout" />

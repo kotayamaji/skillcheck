@@ -46,9 +46,9 @@
     <tbody>
       <c:forEach items="${sessionInfo.petSearchResult}" var="pet">
         <tr>
-          <td>xxx</td>
+          <td>${fn:escapeXml(pet.dispName)}</td>
           <td><a href="/pets/detail?id=${pet.id}">${fn:escapeXml(pet.name)}</a></td>
-          <td>xxx</td>
+          <td>${fn:escapeXml(pet.type)}</td>
         </tr>
       </c:forEach>
     </tbody>

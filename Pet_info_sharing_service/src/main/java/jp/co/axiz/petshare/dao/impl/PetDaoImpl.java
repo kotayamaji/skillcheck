@@ -22,12 +22,12 @@ public class PetDaoImpl implements PetDao {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    private static final String SELECT = "SELECT id, name, animal_type_id, " +
-            "description, user_id, is_deleted " +
-            "FROM pets " +
-            "WHERE is_deleted = FALSE ";
+    private static final String SELECT = "SELECT p.id, p.name, p.animal_type_id, " +
+            "p.description, p.user_id, p.is_deleted, u.disp_name, t.name AS type " +
+            "FROM pets p JOIN users u ON p.user_id = u.id JOIN animal_types t ON p.animal_type_id = t.id " +
+            "WHERE p.is_deleted = FALSE ";
 
-    private static final String ORDER_BY = " ORDER BY id";
+    private static final String ORDER_BY = " ORDER BY p.id";
 
     /**
      * 全件取得
@@ -59,13 +59,13 @@ public class PetDaoImpl implements PetDao {
         String name = pet.getName();
 
         if (id != null) {
-            condition.add("id = :id");
+            condition.add("p.id = :id");
             param.addValue("id", id);
         }
 
         if (!ParamUtil.isNullOrEmpty(name)) {
             condition.add("name = :name");
-            param.addValue("name", name);
+            param.addValue("p.name", name);
         }
 
         // WHERE句の文字列生成

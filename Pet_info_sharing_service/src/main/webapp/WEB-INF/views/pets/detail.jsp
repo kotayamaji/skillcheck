@@ -47,7 +47,7 @@
         <fmt:message key="lbl.animal.type" />
         <fmt:message key="lbl.separator" />
       </label>
-      <span>xxx</span>
+      <span>${fn:escapeXml(pet.type)}</span>
     </div>
     <div>
       <label>
@@ -61,7 +61,7 @@
         <fmt:message key="lbl.post.name" />
         <fmt:message key="lbl.separator" />
       </label>
-      <span>xxx</span>
+      <span>${fn:escapeXml(pet.dispName)}</span>
     </div>
   </fieldset>
 </body>

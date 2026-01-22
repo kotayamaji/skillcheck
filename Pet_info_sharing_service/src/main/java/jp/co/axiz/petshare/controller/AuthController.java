@@ -1,5 +1,6 @@
 package jp.co.axiz.petshare.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
+import jp.co.axiz.petshare.entity.AnimalType;
 import jp.co.axiz.petshare.entity.SessionInfo;
 import jp.co.axiz.petshare.entity.User;
 import jp.co.axiz.petshare.form.LoginForm;
@@ -76,7 +78,9 @@ public class AuthController {
         } else {
             // セッション情報取得
             SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+            List<AnimalType> aniTypes = userInfoService.animalTypes();
             sessionInfo.setUserInfo(user);
+            sessionInfo.setAnimalTypes(aniTypes);
 
             // セッションに保存
             session.setAttribute("sessionInfo", sessionInfo);

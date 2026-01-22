@@ -50,6 +50,15 @@
         </label>
         <form:input path="name" />
       </div>
+      <div>
+        <label>
+          種類
+        </label>
+        <form:select path="typeId" >
+          <form:options /> 
+          <form:options items="${sessionInfo.animalTypes}" itemLabel="name" itemValue="id" />  
+        </form:select>
+      </div>
     </fieldset>
     <form:button>
       <fmt:message key="btn.search" />

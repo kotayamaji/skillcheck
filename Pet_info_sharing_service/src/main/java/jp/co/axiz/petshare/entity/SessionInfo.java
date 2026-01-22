@@ -8,9 +8,18 @@ import java.util.List;
 public class SessionInfo {
     List<Pet> petSearchResult; // ペット検索結果
     User userInfo;
+    List<AnimalType> animalTypes;
 
     public List<Pet> getPetSearchResult() {
         return petSearchResult;
+    }
+
+    public List<AnimalType> getAnimalTypes() {
+        return animalTypes;
+    }
+
+    public void setAnimalTypes(List<AnimalType> animalTypes) {
+        this.animalTypes = animalTypes;
     }
 
     public void setPetSearchResult(List<Pet> petSearchResult) {
