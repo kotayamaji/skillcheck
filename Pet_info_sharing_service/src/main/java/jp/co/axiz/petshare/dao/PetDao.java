@@ -11,4 +11,6 @@ public interface PetDao {
     public List<Pet> findAll();
 
     public List<Pet> find(Pet pet);
+
+    public void register(Pet pet);
 }

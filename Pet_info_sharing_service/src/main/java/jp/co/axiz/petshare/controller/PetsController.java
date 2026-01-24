@@ -15,6 +15,7 @@ import jp.co.axiz.petshare.entity.Pet;
 import jp.co.axiz.petshare.entity.SessionInfo;
 import jp.co.axiz.petshare.form.LoginForm;
 import jp.co.axiz.petshare.form.SearchForm;
+import jp.co.axiz.petshare.form.UpdateForm;
 import jp.co.axiz.petshare.service.PetService;
 import jp.co.axiz.petshare.util.ParamUtil;
 
@@ -58,6 +59,45 @@ public class PetsController {
         return "/pets/search";
     }
 
+    @GetMapping("/pets/register")
+    public String search(@ModelAttribute("updateForm") UpdateForm form, @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+        return "/pets/search";
+    }
+
+        /*
+     * 登録
+     */
+    @GetMapping("/pets/register")
+    public String update(@ModelAttribute("updateForm") UpdateForm form, @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+        // セッション情報を取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+
+        // 検索条件をEntityにセット
+        Pet pet = new Pet();
+        pet.setName(form.getName());
+        pet.setAnimalTypeId(form.getTypeId());
+        pet.setDescription(form.getDescription());
+
+        // 登録処理
+        //List<Pet> resultList = petService.find(pet);
+        petService.register(pet);
+
+        return "/pets/menu";
+        /* 
+        if (resultList.isEmpty()) {
+            // 検索結果が無い場合
+            String errMsg = messageSource.getMessage("search.error", null, Locale.getDefault());
+            model.addAttribute("errMsg", errMsg);
+            return "/pets/search";
+        } else {
+            // セッションに検索結果を保存
+            sessionInfo.setPetSearchResult(resultList);
+            return "/pets/searchResult";
+        }
+            */
+
+    }
+
     /*
      * 検索結果画面
      */
@@ -69,6 +109,7 @@ public class PetsController {
         // 検索条件をEntityにセット
         Pet pet = new Pet();
         pet.setName(searchForm.getName());
+        pet.setAnimalTypeId(searchForm.getTypeId());
 
         // 検索処理
         List<Pet> resultList = petService.find(pet);

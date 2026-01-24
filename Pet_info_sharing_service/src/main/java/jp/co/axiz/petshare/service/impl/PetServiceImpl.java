@@ -41,4 +41,9 @@ public class PetServiceImpl implements PetService {
         return resultList.isEmpty() ? null : resultList.get(0);
     }
 
+    @Override
+    public void register(Pet pet) {
+        petDao.register(pet);
+    }
+
 }

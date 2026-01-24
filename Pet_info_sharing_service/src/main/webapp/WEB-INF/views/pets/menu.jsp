@@ -40,5 +40,8 @@
   <p>
     <a href="/pets/search"><fmt:message key="btn.search" /></a>
   </p>
+    <p>
+    <a href="/pets/register">登録</a>
+  </p>
 </body>
 </html>

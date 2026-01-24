@@ -13,4 +13,6 @@ public interface PetService {
     public List<Pet> find(Pet pet);
 
     public Pet findById(Integer id);
+
+    public void register(Pet pet);
 }

@@ -29,6 +29,8 @@ public class PetDaoImpl implements PetDao {
 
     private static final String ORDER_BY = " ORDER BY p.id";
 
+    private static final String INSERT = "INSERT INTO pets (name , animal_type_id , description ) VALUES ";
+
     /**
      * 全件取得
      */
@@ -45,7 +47,7 @@ public class PetDaoImpl implements PetDao {
     @Override
     public List<Pet> find(Pet pet) {
 
-        if (pet == null || pet.isEmptyCondition()) {
+        if (pet == null || pet.isEmptyCondition() && pet.getAnimalTypeId() == 0) {
             // 検索条件が無い場合は全検索
             return findAll();
         }
@@ -57,6 +59,7 @@ public class PetDaoImpl implements PetDao {
 
         Integer id = pet.getId();
         String name = pet.getName();
+        Integer typeId = pet.getAnimalTypeId();
 
         if (id != null) {
             condition.add("p.id = :id");
@@ -64,8 +67,13 @@ public class PetDaoImpl implements PetDao {
         }
 
         if (!ParamUtil.isNullOrEmpty(name)) {
-            condition.add("name = :name");
-            param.addValue("p.name", name);
+            condition.add("p.name = :name");
+            param.addValue("name", name);
+        }
+
+        if (typeId != null) {
+            condition.add("p.animal_type_id = :typeId");
+            param.addValue("typeId", typeId);
         }
 
         // WHERE句の文字列生成
@@ -78,5 +86,11 @@ public class PetDaoImpl implements PetDao {
         List<Pet> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Pet>(Pet.class));
 
         return resultList;
+    }
+
+    @Override
+    public void register(Pet pet) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'register'");
     }
 }
