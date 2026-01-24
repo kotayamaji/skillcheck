@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDao {
             "FROM users " +
             "WHERE user_name =:user AND password = :password;";
 
-    private static final String SELECT_TYPE ="SELECT * FROM animal_types";
+    private static final String SELECT_TYPE = "SELECT * FROM animal_types";
 
     /**
      * user_name、passwordによる検索
@@ -34,8 +34,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findByUserNameAndPassword(String userName, String password) {
         MapSqlParameterSource param = new MapSqlParameterSource();
-        param.addValue("user",userName );
-        param.addValue("password",password );
+        param.addValue("user", userName);
+        param.addValue("password", password);
 
         List<User> resultList = jdbcTemplate.query(SELECT_BY_USER_NAME_AND_PASSWORD, param,
                 new BeanPropertyRowMapper<User>(User.class));
@@ -47,9 +47,7 @@ public class UserDaoImpl implements UserDao {
     public List<AnimalType> findAnimalTypes() {
         List<AnimalType> resultList = jdbcTemplate.query(SELECT_TYPE,
                 new BeanPropertyRowMapper<AnimalType>(AnimalType.class));
-        AnimalType all = new AnimalType(0 , "すべて"); 
 
-        resultList.add(0,all);
         return resultList;
     }
 

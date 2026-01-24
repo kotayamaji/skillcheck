@@ -62,7 +62,7 @@ public class AuthController {
 
         // エラーメッセージ
         String errMsg = messageSource.getMessage("login.error", null, Locale.getDefault());
-               
+
         // 入力値チェック
         if (bindingResult.hasErrors()) {
             return "/index";
@@ -79,8 +79,13 @@ public class AuthController {
             // セッション情報取得
             SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
             List<AnimalType> aniTypes = userInfoService.animalTypes();
+            List<AnimalType> aniTypesUp = userInfoService.animalTypes();
+
             sessionInfo.setUserInfo(user);
+            AnimalType all = new AnimalType(0, "すべて");
+            aniTypes.add(0, all);
             sessionInfo.setAnimalTypes(aniTypes);
+            sessionInfo.setAnimalTypesUp(aniTypesUp);
 
             // セッションに保存
             session.setAttribute("sessionInfo", sessionInfo);

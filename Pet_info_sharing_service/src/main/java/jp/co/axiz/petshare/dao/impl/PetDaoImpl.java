@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,7 +30,7 @@ public class PetDaoImpl implements PetDao {
 
     private static final String ORDER_BY = " ORDER BY p.id";
 
-    private static final String INSERT = "INSERT INTO pets (name , animal_type_id , description ) VALUES ";
+    private static final String INSERT = "INSERT INTO pet_info_sharing.pets(name, animal_type_id, description, user_id) VALUES (:name, :animal_type_id, :description, :user_id);";
 
     /**
      * 全件取得
@@ -89,8 +90,14 @@ public class PetDaoImpl implements PetDao {
     }
 
     @Override
-    public void register(Pet pet) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'register'");
+    public void register(Pet pet, Integer uId) {
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        // :name, :animal_type_id, :description, :user_id
+        param.addValue("name", pet.getName());
+        param.addValue("animal_type_id", pet.getAnimalTypeId());
+        param.addValue("description", pet.getDescription());
+        param.addValue("user_id", uId);
+
+        jdbcTemplate.update(INSERT, new BeanPropertySqlParameterSource(Pet.class));
     }
 }

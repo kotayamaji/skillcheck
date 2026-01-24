@@ -9,6 +9,7 @@ public class SessionInfo {
     List<Pet> petSearchResult; // ペット検索結果
     User userInfo;
     List<AnimalType> animalTypes;
+    List<AnimalType> animalTypesUp;
 
     public List<Pet> getPetSearchResult() {
         return petSearchResult;
@@ -32,5 +33,13 @@ public class SessionInfo {
 
     public void setUserInfo(User userinfo) {
         this.userInfo = userinfo;
+    }
+
+    public List<AnimalType> getAnimalTypesUp() {
+        return animalTypesUp;
+    }
+
+    public void setAnimalTypesUp(List<AnimalType> insert) {
+        this.animalTypesUp = insert;
     }
 }

@@ -14,5 +14,5 @@ public interface PetService {
 
     public Pet findById(Integer id);
 
-    public void register(Pet pet);
+    public void register(Pet pet, Integer string);
 }

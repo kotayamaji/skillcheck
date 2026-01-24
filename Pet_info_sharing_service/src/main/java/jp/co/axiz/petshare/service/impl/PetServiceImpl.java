@@ -42,8 +42,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public void register(Pet pet) {
-        petDao.register(pet);
+    public void register(Pet pet, Integer name) {
+        petDao.register(pet, name);
     }
 
 }

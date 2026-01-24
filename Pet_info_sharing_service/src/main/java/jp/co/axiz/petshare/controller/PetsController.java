@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.axiz.petshare.entity.Pet;
@@ -55,20 +56,23 @@ public class PetsController {
      * 検索画面
      */
     @GetMapping("/pets/search")
-    public String search(@ModelAttribute("searchForm") SearchForm searchForm, @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+    public String search(@ModelAttribute("searchForm") SearchForm searchForm,
+            @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
         return "/pets/search";
     }
 
     @GetMapping("/pets/register")
-    public String search(@ModelAttribute("updateForm") UpdateForm form, @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
-        return "/pets/search";
+    public String search(@ModelAttribute("updateForm") UpdateForm form,
+            @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+        return "/pets/register";
     }
 
-        /*
+    /*
      * 登録
      */
-    @GetMapping("/pets/register")
-    public String update(@ModelAttribute("updateForm") UpdateForm form, @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+    @PostMapping("/pets/register")
+    public String update(@ModelAttribute("updateForm") UpdateForm form,
+            @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
@@ -79,22 +83,23 @@ public class PetsController {
         pet.setDescription(form.getDescription());
 
         // 登録処理
-        //List<Pet> resultList = petService.find(pet);
-        petService.register(pet);
+        // List<Pet> resultList = petService.find(pet);
+        petService.register(pet, sessionInfo.getUserInfo().getId());
 
         return "/pets/menu";
-        /* 
-        if (resultList.isEmpty()) {
-            // 検索結果が無い場合
-            String errMsg = messageSource.getMessage("search.error", null, Locale.getDefault());
-            model.addAttribute("errMsg", errMsg);
-            return "/pets/search";
-        } else {
-            // セッションに検索結果を保存
-            sessionInfo.setPetSearchResult(resultList);
-            return "/pets/searchResult";
-        }
-            */
+        /*
+         * if (resultList.isEmpty()) {
+         * // 検索結果が無い場合
+         * String errMsg = messageSource.getMessage("search.error", null,
+         * Locale.getDefault());
+         * model.addAttribute("errMsg", errMsg);
+         * return "/pets/search";
+         * } else {
+         * // セッションに検索結果を保存
+         * sessionInfo.setPetSearchResult(resultList);
+         * return "/pets/searchResult";
+         * }
+         */
 
     }
 
@@ -102,7 +107,8 @@ public class PetsController {
      * 検索結果画面
      */
     @GetMapping("/pets/searchResult")
-    public String searchResult(@ModelAttribute("searchForm") SearchForm searchForm, @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+    public String searchResult(@ModelAttribute("searchForm") SearchForm searchForm,
+            @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
