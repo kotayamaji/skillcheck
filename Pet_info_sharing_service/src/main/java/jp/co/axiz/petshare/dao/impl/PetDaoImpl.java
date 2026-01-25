@@ -30,7 +30,7 @@ public class PetDaoImpl implements PetDao {
 
     private static final String ORDER_BY = " ORDER BY p.id";
 
-    private static final String INSERT = "INSERT INTO pet_info_sharing.pets(name, animal_type_id, description, user_id) VALUES (:name, :animal_type_id, :description, :user_id);";
+    private static final String INSERT = "INSERT INTO pet_info_sharing.pets(name, animal_type_id, description, user_id) VALUES (:name, :animalTypeId, :description, :user_id);";
 
     /**
      * 全件取得
@@ -94,10 +94,10 @@ public class PetDaoImpl implements PetDao {
         MapSqlParameterSource param = new MapSqlParameterSource();
         // :name, :animal_type_id, :description, :user_id
         param.addValue("name", pet.getName());
-        param.addValue("animal_type_id", pet.getAnimalTypeId());
+        param.addValue("animalTypeId", pet.getAnimalTypeId());
         param.addValue("description", pet.getDescription());
         param.addValue("user_id", uId);
 
-        jdbcTemplate.update(INSERT, new BeanPropertySqlParameterSource(Pet.class));
+        jdbcTemplate.update(INSERT, param);
     }
 }

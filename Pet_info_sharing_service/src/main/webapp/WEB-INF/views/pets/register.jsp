@@ -48,14 +48,14 @@
               <p class="error">${fn:escapeXml(errMsg)}</p>
             </c:if>
 
-
-            <form:form action="/pets/menu" modelAttribute="updateForm" method="get">
+            <form:form action="/pets/menu" modelAttribute="updateForm" method="post">
               <fieldset>
                 <div>
                   <label>
                     <fmt:message key="lbl.pet.name" />
                   </label>
                   <form:input path="name" />
+                  <form:errors path="name" class="error" />
                 </div>
                 <div>
                   <label>

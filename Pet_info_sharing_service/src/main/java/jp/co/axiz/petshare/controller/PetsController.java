@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,9 +72,14 @@ public class PetsController {
     /*
      * 登録
      */
-    @PostMapping("/pets/register")
-    public String update(@ModelAttribute("updateForm") UpdateForm form,
+    @PostMapping("/pets/menu")
+    public String update(@Validated @ModelAttribute("updateForm") UpdateForm form,
+            BindingResult bindingResult,
             @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+        if (bindingResult.hasErrors()) {
+			return "/pets/register";
+		}
+        
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 

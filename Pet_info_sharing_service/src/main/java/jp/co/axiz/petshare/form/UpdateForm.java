@@ -1,7 +1,9 @@
 package jp.co.axiz.petshare.form;
 
-public class UpdateForm {
+import jakarta.validation.constraints.NotBlank;
 
+public class UpdateForm {
+    @NotBlank(message = "名前は必須です")
     private String name;
     private Integer typeId;
     private String typeName;
