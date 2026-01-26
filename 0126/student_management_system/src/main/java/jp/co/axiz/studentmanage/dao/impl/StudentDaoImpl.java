@@ -30,7 +30,7 @@ public class StudentDaoImpl implements StudentDao {
     private static final String INSERT = "INSERT INTO students (student_name, grade) " +
             "VALUES (:studentName, :grade)";
 
-    private static final String DELETE = "DELETE FROM students WHERE student_id = :studentId";
+    private static final String DELETE = "UPDATE students SET is_deleted = 1 WHERE student_id = :studentId";
 
     /**
      * 全件取得
@@ -59,10 +59,16 @@ public class StudentDaoImpl implements StudentDao {
         MapSqlParameterSource param = new MapSqlParameterSource();
 
         String studentName = student.getStudentName();
+        Integer grade = student.getGrade();
 
         if (!ParamUtil.isNullOrEmpty(studentName)) {
             condition.add("student_name = :studentName");
             param.addValue("studentName", studentName);
+        }
+
+        if (grade != null) {
+            condition.add("grade = :grade");
+            param.addValue("grade", grade);
         }
 
         // WHERE句の文字列生成

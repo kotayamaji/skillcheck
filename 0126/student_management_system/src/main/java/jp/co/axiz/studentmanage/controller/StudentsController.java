@@ -83,7 +83,8 @@ public class StudentsController {
      * 検索結果画面
      */
     @GetMapping("/students/searchResult")
-    public String searchResult(@ModelAttribute("searchForm") SearchForm searchForm,
+    public String searchResult(@Validated @ModelAttribute("searchForm") SearchForm searchForm,
+            BindingResult bindingResult,
             @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
@@ -93,9 +94,14 @@ public class StudentsController {
             return "/index";
         }
 
+        if (bindingResult.hasErrors()) {
+            return "/students/search";
+        }
+
         // 検索条件をEntityにセット
         Student student = new Student();
         student.setStudentName(searchForm.getStudentName());
+        student.setGrade(searchForm.getGrade());
 
         // 検索処理
         List<Student> resultList = studentService.find(student);

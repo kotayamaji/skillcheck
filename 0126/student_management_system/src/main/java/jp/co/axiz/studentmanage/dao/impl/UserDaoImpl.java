@@ -20,8 +20,9 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    private static final String SELECT_BY_USER_NAME_AND_PASSWORD = "SELECT user_id, user_name, password " +
-            "FROM users " +
+    private static final String SELECT_BY_USER_NAME_AND_PASSWORD = "SELECT user_id, user_name, password , role_name , disp_name "
+            +
+            "FROM users u JOIN roles r ON u.role_id = r.role_id " +
             "WHERE user_name = :userName AND password = :password " +
             "AND is_active = 1 ";
 

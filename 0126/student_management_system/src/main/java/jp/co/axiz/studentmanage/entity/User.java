@@ -7,6 +7,39 @@ public class User {
 	private Integer userId;
 	private String userName;
 	private String password;
+	private String dispName;
+	private String roleName;
+	private Integer roleId;
+
+	private static final Integer ADMIN_ROLE_ID = 1;
+
+	public boolean isAdmin() {
+		return roleId == ADMIN_ROLE_ID;
+	}
+
+	public String getDispName() {
+		return dispName;
+	}
+
+	public void setDispName(String dispName) {
+		this.dispName = dispName;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
 
 	public User() {
 	}
