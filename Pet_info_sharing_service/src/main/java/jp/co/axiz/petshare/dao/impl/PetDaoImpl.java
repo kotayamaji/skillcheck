@@ -32,6 +32,8 @@ public class PetDaoImpl implements PetDao {
 
     private static final String INSERT = "INSERT INTO pet_info_sharing.pets(name, animal_type_id, description, user_id) VALUES (:name, :animalTypeId, :description, :user_id);";
 
+    private static final String DELETE = "UPDATE pets SET is_deleted = TRUE WHERE id = :id";
+
     /**
      * 全件取得
      */
@@ -99,5 +101,12 @@ public class PetDaoImpl implements PetDao {
         param.addValue("user_id", uId);
 
         jdbcTemplate.update(INSERT, param);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("id", id);
+        jdbcTemplate.update(DELETE, param);
     }
 }

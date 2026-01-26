@@ -77,9 +77,9 @@ public class PetsController {
             BindingResult bindingResult,
             @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
         if (bindingResult.hasErrors()) {
-			return "/pets/register";
-		}
-        
+            return "/pets/register";
+        }
+
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
@@ -144,12 +144,43 @@ public class PetsController {
      */
     @GetMapping("/pets/detail")
     public String detail(Integer id, @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
         // 対象データ取得
         Pet pet = petService.findById(id);
 
         // データセット
         model.addAttribute("pet", pet);
+        if (pet.getUserId() == sessionInfo.getUserInfo().getId()) {
+            session.setAttribute("canDelete", true);
+        } else {
+            session.setAttribute("canDelete", false);
+        }
+        session.setAttribute("deleteId", id);
 
         return "/pets/detail";
+    }
+
+    @PostMapping(value = "/pets/fromDelete", params = "back")
+    public String back(@ModelAttribute("updateForm") UpdateForm form) {
+        // セッション情報を取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+        if (sessionInfo.getUserInfo() == null) {
+            // ログインしていない場合はトップに戻る
+            return "index";
+        }
+        return "/pets/searchResult";
+    }
+
+    @PostMapping(value = "/pets/fromDelete", params = "delete")
+    public String delete(@ModelAttribute("updateForm") UpdateForm form) {
+        // セッション情報を取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+        if (sessionInfo.getUserInfo() == null) {
+            // ログインしていない場合はトップに戻る
+            return "index";
+        }
+        petService.delete((Integer) session.getAttribute("deleteId"));
+        session.setAttribute("deleteId", null);
+        return "/pets/menu";
     }
 }

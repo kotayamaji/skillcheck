@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>検索結果画面</title>
+<link href="css/commons.css" rel="stylesheet">
+</head>
+<body>
+  <table>
+    <caption>検索結果</caption>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>TEL</th>
+        <th>権限</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>sato</td>
+        <td>佐藤</td>
+        <td>09011111111</td>
+        <td>管理者</td>
+      </tr>
+      <tr>
+        <td>suzuki</td>
+        <td>鈴木</td>
+        <td>09022222222</td>
+        <td>管理者</td>
+      </tr>
+      <tr>
+        <td>takahashi</td>
+        <td>高橋</td>
+        <td>09033333333</td>
+        <td>管理者</td>
+      </tr>
+      <tr>
+        <td>tanaka</td>
+        <td>田中</td>
+        <td>09044444444</td>
+        <td>一般</td>
+      </tr>
+      <tr>
+        <td>ito</td>
+        <td>伊藤</td>
+        <td>09055555555</td>
+        <td>一般</td>
+      </tr>
+      <tr>
+        <td>yamamoto</td>
+        <td>山本</td>
+        <td>09066666666</td>
+        <td>一般</td>
+      </tr>
+      <tr>
+        <td>watanabe</td>
+        <td>渡辺</td>
+        <td>09077777777</td>
+        <td>一般</td>
+      </tr>
+      <tr>
+        <td>nakamura</td>
+        <td>中村</td>
+        <td>09088888888</td>
+        <td>一般</td>
+      </tr>
+      <tr>
+        <td>kobayashi</td>
+        <td>小林</td>
+        <td>09099999999</td>
+        <td>一般</td>
+      </tr>
+      <tr>
+        <td>kato</td>
+        <td>加藤</td>
+        <td>09000000000</td>
+        <td>一般</td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <a href="menu.html">メニューに戻る</a>
+  </div>
+</body>
+</html>

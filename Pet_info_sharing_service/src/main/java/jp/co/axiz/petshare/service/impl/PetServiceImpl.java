@@ -46,4 +46,10 @@ public class PetServiceImpl implements PetService {
         petDao.register(pet, name);
     }
 
+    @Override
+    public void delete(Integer id) {
+        // TODO 自動生成されたメソッド・スタブ
+        petDao.delete(id);
+    }
+
 }

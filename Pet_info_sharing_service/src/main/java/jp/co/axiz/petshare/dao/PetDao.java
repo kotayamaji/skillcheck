@@ -13,4 +13,6 @@ public interface PetDao {
     public List<Pet> find(Pet pet);
 
     public void register(Pet pet, Integer uId);
+
+    public void delete(Integer id);
 }
