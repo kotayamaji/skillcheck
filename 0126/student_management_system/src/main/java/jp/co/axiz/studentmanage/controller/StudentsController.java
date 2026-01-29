@@ -159,7 +159,7 @@ public class StudentsController {
     /*
      * 更新処理
      */
-    @PostMapping(value = "/students/update", params = "edit")
+    @PostMapping(value = "/students/update", params = "commit")
     public String updateExecute(@Validated @ModelAttribute("registerForm") RegisterForm form,
             @ModelAttribute("searchForm") SearchForm searchForm,
             @ModelAttribute("loginForm") LoginForm loginForm,
@@ -187,7 +187,7 @@ public class StudentsController {
     /*
      * 編集画面から検索画面へ戻る
      */
-    @PostMapping(value = "/students/updateResult", params = "back")
+    @PostMapping(value = "/students/update", params = "back")
     public String back(Integer updateStudentId, @ModelAttribute("registerForm") RegisterForm form,
             @ModelAttribute("searchForm") SearchForm searchForm, Model model) {
         // セッション情報を取得
@@ -198,7 +198,7 @@ public class StudentsController {
             return "/index";
         }
 
-        return "/students/search";
+        return "/students/searchResult";
     }
 
     /*

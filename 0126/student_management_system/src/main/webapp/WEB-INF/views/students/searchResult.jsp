@@ -76,12 +76,12 @@
                         <td>
                           <button name="deleteStudentId" value="${student.studentId}">
                             <fmt:message key="btn.delete" />
-                            <button>
+                          </button>
                         </td>
                         <td>
-                          <form name="updateStudentId" value="${student.studentId}">
+                          <button name="updateStudentId" value="${student.studentId}">
                             編集
-                          </form>
+                          </button>
                         </td>
                       </c:if>
                     </tr>

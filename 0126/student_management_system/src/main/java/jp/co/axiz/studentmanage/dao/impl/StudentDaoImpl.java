@@ -126,11 +126,11 @@ public class StudentDaoImpl implements StudentDao {
         // :student_name, grade = :grade, hometown = :hometown, major_id = :major_id
         // WHERE student_id = :student_id
         MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("student_name", student.getStudentName());
         param.addValue("student_id", student.getStudentId());
         param.addValue("grade", student.getGrade());
         param.addValue("hometown", student.getHometown());
         param.addValue("major_id", student.getMajorId());
-
-        ;
+        jdbcTemplate.update(UPDATE, param);;
     }
 }
