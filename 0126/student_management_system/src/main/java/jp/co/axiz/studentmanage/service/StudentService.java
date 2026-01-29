@@ -15,4 +15,8 @@ public interface StudentService {
     public void insert(Student student);
 
     public void delete(Integer id);
+
+    public Student findById(Integer id);
+
+    public void update(Student student);
 }

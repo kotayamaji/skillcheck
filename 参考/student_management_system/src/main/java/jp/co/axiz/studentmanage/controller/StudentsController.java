@@ -48,11 +48,9 @@ public class StudentsController {
      */
     @Autowired
     private StudentService studentService;
-    
+
     @Autowired
     private MajorService majorService;
-    
-    
 
     /*
      * 学生初期画面
@@ -76,7 +74,7 @@ public class StudentsController {
     @GetMapping("/students/search")
     public String search(@ModelAttribute("searchForm") SearchForm searchForm,
             @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
-    	
+
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
@@ -92,9 +90,10 @@ public class StudentsController {
      * 検索結果画面
      */
     @GetMapping("/students/searchResult")
-    public String searchResult(@Validated @ModelAttribute("searchForm") SearchForm searchForm,BindingResult bindingResult,
+    public String searchResult(@Validated @ModelAttribute("searchForm") SearchForm searchForm,
+            BindingResult bindingResult,
             @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
-    	  // 入力値チェック
+        // 入力値チェック
         if (bindingResult.hasErrors()) {
             return "/students/search";
         }
@@ -141,46 +140,43 @@ public class StudentsController {
      * 編集画面表示
      */
     @PostMapping(value = "/students/searchResult", params = "updateStudentId")
-    public String update(Integer updateStudentId, @ModelAttribute("updateForm") UpdateForm updateForm,Model model) {
-    	   // セッション情報を取得
+    public String update(Integer updateStudentId, @ModelAttribute("updateForm") UpdateForm updateForm, Model model) {
+        // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
         if (sessionInfo.getLoginUser() == null) {
             // ログインしていない場合はトップに戻る
             return "/index";
         }
-        
+
         List<Major> majorList = majorService.findAll();
-        
+
         session.setAttribute("majorList", majorList);
-        
+
         Student student = studentService.findById(updateStudentId);
-    	updateForm.setUpstudentName(student.getStudentName());
-    	updateForm.setUpgrade(student.getGrade());
-    	updateForm.setHometown(student.getHometown());
-    	updateForm.setMajor(student.getMajorId());
-    	
-    	session.setAttribute("updateStudentId", updateStudentId);
+        updateForm.setUpstudentName(student.getStudentName());
+        updateForm.setUpgrade(student.getGrade());
+        updateForm.setHometown(student.getHometown());
+        updateForm.setMajor(student.getMajorId());
+
+        session.setAttribute("updateStudentId", updateStudentId);
 
         return "/students/update";
     }
-    
-    
+
     /*
      * 編集処理
      */
     @PostMapping(value = "/students/updateResult", params = "edit")
-    public String back(@Validated @ModelAttribute("updateForm") UpdateForm updateForm,BindingResult bindingResult, @ModelAttribute("searchForm") SearchForm searchForm, 
-    		@ModelAttribute("loginForm") LoginForm loginForm,Model model) {
-    	 
-    	
-    	
-    	if (bindingResult.hasErrors()) {
-             return "/students/update";
-         } 
-    	
-    	
-    	// セッション情報を取得
+    public String back(@Validated @ModelAttribute("updateForm") UpdateForm updateForm, BindingResult bindingResult,
+            @ModelAttribute("searchForm") SearchForm searchForm,
+            @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "/students/update";
+        }
+
+        // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
         if (sessionInfo.getLoginUser() == null) {
@@ -188,28 +184,26 @@ public class StudentsController {
             return "/index";
         }
 
-        
         Student student = new Student();
-        
+
         student.setStudentName(updateForm.getUpstudentName());
         student.setGrade(updateForm.getUpgrade());
         student.setHometown(updateForm.getHometown());
         student.setMajorId(updateForm.getMajor());
-        student.setStudentId((Integer)session.getAttribute("updateStudentId"));
-        
+        student.setStudentId((Integer) session.getAttribute("updateStudentId"));
+
         studentService.update(student);
-        
+
         return "/students/menu";
     }
-    
-    
-    
+
     /*
      * 編集画面から検索画面へ戻る
      */
     @PostMapping(value = "/students/updateResult", params = "back")
-    public String back(Integer updateStudentId, @ModelAttribute("updateForm") UpdateForm updateForm,@ModelAttribute("searchForm") SearchForm searchForm,Model model) {
-    	   // セッション情報を取得
+    public String back(Integer updateStudentId, @ModelAttribute("updateForm") UpdateForm updateForm,
+            @ModelAttribute("searchForm") SearchForm searchForm, Model model) {
+        // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
         if (sessionInfo.getLoginUser() == null) {
@@ -219,8 +213,7 @@ public class StudentsController {
 
         return "/students/search";
     }
-    
-    
+
     /*
      * 登録画面
      */
@@ -234,11 +227,11 @@ public class StudentsController {
             // ログインしていない場合はトップに戻る
             return "/index";
         }
-        
+
         List<Major> majorList = majorService.findAll();
-        
+
         session.setAttribute("majorList", majorList);
-        
+
         return "/students/register";
     }
 

@@ -130,6 +130,78 @@ public class StudentsController {
     }
 
     /*
+     * 更新画面
+     */
+    @PostMapping(value = "/students/searchResult", params = "updateStudentId")
+    public String updateExecute(Integer updateStudentId, @ModelAttribute("registerForm") RegisterForm form,
+            Model model) {
+        // 更新画面に遷移
+        // セッション情報を取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+
+        if (sessionInfo.getLoginUser() == null) {
+            // ログインしていない場合はトップに戻る
+            return "/index";
+        }
+
+        Student student = studentService.findById(updateStudentId);
+
+        form.setStudentName(student.getStudentName());
+        form.setGrade(student.getGrade());
+        form.setHometown(student.getHometown());
+        form.setMajorId(student.getMajorId());
+
+        session.setAttribute("updateStudentId", updateStudentId);
+
+        return "/students/update";
+    }
+
+    /*
+     * 更新処理
+     */
+    @PostMapping(value = "/students/update", params = "edit")
+    public String updateExecute(@Validated @ModelAttribute("registerForm") RegisterForm form,
+            @ModelAttribute("searchForm") SearchForm searchForm,
+            @ModelAttribute("loginForm") LoginForm loginForm,
+            BindingResult bindingResult, Model model) {
+
+        // 入力値チェック
+        if (bindingResult.hasErrors()) {
+            return "/students/update";
+        }
+
+        // 入力値をEntityにセット
+        Student student = new Student();
+        student.setStudentName(form.getStudentName());
+        student.setGrade(form.getGrade());
+        student.setHometown(form.getHometown());
+        student.setMajorId(form.getMajorId());
+        student.setStudentId((Integer) session.getAttribute("updateStudentId"));
+
+        // 登録処理
+        studentService.update(student);
+
+        return "/students/menu";
+    }
+
+    /*
+     * 編集画面から検索画面へ戻る
+     */
+    @PostMapping(value = "/students/updateResult", params = "back")
+    public String back(Integer updateStudentId, @ModelAttribute("registerForm") RegisterForm form,
+            @ModelAttribute("searchForm") SearchForm searchForm, Model model) {
+        // セッション情報を取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+
+        if (sessionInfo.getLoginUser() == null) {
+            // ログインしていない場合はトップに戻る
+            return "/index";
+        }
+
+        return "/students/search";
+    }
+
+    /*
      * 登録画面
      */
     @GetMapping("/students/register")
@@ -162,6 +234,8 @@ public class StudentsController {
         Student student = new Student();
         student.setStudentName(form.getStudentName());
         student.setGrade(form.getGrade());
+        student.setHometown(form.getHometown());
+        student.setMajorId(form.getMajorId());
 
         // 登録処理
         studentService.insert(student);

@@ -15,4 +15,8 @@ public interface StudentDao {
 	public void insert(Student student);
 
 	public void delete(Integer userId);
+
+	public List<Student> findById(Integer id);
+
+	public void update(Student student);
 }

@@ -22,22 +22,25 @@ public class StudentDaoImpl implements StudentDao {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    private static final String SELECT = "SELECT student_id, student_name, grade " +
-            "FROM students ";
+    private static final String SELECT = "SELECT student_id, student_name, grade, hometown, m.major_name " +
+            "FROM students s " +
+            "JOIN majors m ON s.major_id = m.major_id ";
 
     private static final String ORDER_BY = " ORDER BY student_id";
 
-    private static final String INSERT = "INSERT INTO students (student_name, grade) " +
-            "VALUES (:studentName, :grade)";
+    private static final String INSERT = "INSERT INTO student_management.students(student_name, grade, hometown, major_id) VALUES (:studentName, :grade, :hometown, :major_id)";
 
     private static final String DELETE = "UPDATE students SET is_deleted = 1 WHERE student_id = :studentId";
+
+    private static final String FINDBYID = "SELECT student_name , grade , hometown , major_id FROM students WHERE student_id = :student_id AND is_deleted = 0 ORDER BY student_id ;";
+    private static final String UPDATE = "UPDATE student_management.students SET student_name = :student_name, grade = :grade, hometown = :hometown, major_id = :major_id WHERE student_id = :student_id";
 
     /**
      * 全件取得
      */
     @Override
     public List<Student> findAll() {
-        List<Student> resultList = jdbcTemplate.query(SELECT + ORDER_BY,
+        List<Student> resultList = jdbcTemplate.query(SELECT + " WHERE is_deleted = 0 " + ORDER_BY,
                 new BeanPropertyRowMapper<Student>(Student.class));
 
         return resultList;
@@ -75,7 +78,7 @@ public class StudentDaoImpl implements StudentDao {
         String whereString = String.join(" AND ", condition.toArray(new String[] {}));
 
         // SQL文生成
-        String sql = SELECT + " WHERE " + whereString + ORDER_BY;
+        String sql = SELECT + " WHERE " + whereString + " AND is_deleted = 0 " + ORDER_BY;
 
         // SQL文実行
         List<Student> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Student>(Student.class));
@@ -88,9 +91,12 @@ public class StudentDaoImpl implements StudentDao {
      */
     @Override
     public void insert(Student student) {
+        // :student_name, :grade, :hometown, :major_id
         MapSqlParameterSource param = new MapSqlParameterSource();
         param.addValue("studentName", student.getStudentName());
         param.addValue("grade", student.getGrade());
+        param.addValue("hometown", student.getHometown());
+        param.addValue("major_id", student.getMajorId());
 
         jdbcTemplate.update(INSERT, param);
     }
@@ -104,5 +110,27 @@ public class StudentDaoImpl implements StudentDao {
         param.addValue("studentId", studentId);
 
         jdbcTemplate.update(DELETE, param);
+    }
+
+    @Override
+    public List<Student> findById(Integer id) {
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("student_id", id);
+        List<Student> resultList = jdbcTemplate.query(FINDBYID, param,
+                new BeanPropertyRowMapper<Student>(Student.class));
+        return resultList;
+    }
+
+    @Override
+    public void update(Student student) {
+        // :student_name, grade = :grade, hometown = :hometown, major_id = :major_id
+        // WHERE student_id = :student_id
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("student_id", student.getStudentId());
+        param.addValue("grade", student.getGrade());
+        param.addValue("hometown", student.getHometown());
+        param.addValue("major_id", student.getMajorId());
+
+        ;
     }
 }

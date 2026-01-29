@@ -8,6 +8,7 @@ import java.util.List;
 public class SessionInfo {
     User loginUser; // ログインユーザ情報
     List<Student> studentSearchResult; // 学生検索結果
+    List<Majors> majors;
 
     public User getLoginUser() {
         return loginUser;
@@ -15,6 +16,14 @@ public class SessionInfo {
 
     public void setLoginUser(User loginUser) {
         this.loginUser = loginUser;
+    }
+
+    public List<Majors> getMajors() {
+        return majors;
+    }
+
+    public void setMajors(List<Majors> majors) {
+        this.majors = majors;
     }
 
     public List<Student> getStudentSearchResult() {
