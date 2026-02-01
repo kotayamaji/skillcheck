@@ -21,7 +21,7 @@
               <p class="error">${fn:escapeXml(errMsg)}</p>
             </c:if>
 
-            <form:form action="update" method="post" modelAttribute="updateForm">
+            <form:form action="updateInput" method="post" modelAttribute="updateForm">
               <fieldset>
                 <div>
                   <label class="required">ID</label>
