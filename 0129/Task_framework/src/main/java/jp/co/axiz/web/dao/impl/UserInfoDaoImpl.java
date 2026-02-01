@@ -124,4 +124,21 @@ public class UserInfoDaoImpl implements UserInfoDao {
 
         jdbcTemplate.update(INSERT, param);
     }
+
+    @Override
+    public boolean ExcludingUserId(String loginId, Integer userId) {
+        MapSqlParameterSource param = new MapSqlParameterSource();
+
+        Boolean exsist;
+        UserInfo user;
+        param.addValue("loginId", user.getLoginId());
+        param.addValue("userName", user.getUserName());
+
+        List<UserInfo> resultList = jdbcTemplate.query(SELECT_BY_LOGIN_ID_AND_PASS, param,
+                new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
+        user = resultList.get(0);
+        if (user == null) {
+            exsist = true;
+        }
+    }
 }

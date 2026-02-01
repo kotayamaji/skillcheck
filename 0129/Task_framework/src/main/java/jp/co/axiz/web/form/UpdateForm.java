@@ -20,6 +20,8 @@ public class UpdateForm {
 
     private String password;
 
+    private String confirmPassword;
+
     public String getLoginId() {
         return loginId;
     }
@@ -66,6 +68,14 @@ public class UpdateForm {
 
     public void setPassword(String _password) {
         this.password = _password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
 }

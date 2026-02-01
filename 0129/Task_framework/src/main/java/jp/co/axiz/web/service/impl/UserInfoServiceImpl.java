@@ -56,4 +56,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     public void insert(UserInfo userInfo) {
         userInfoDao.insert(userInfo);
     }
+
+    @Override
+    public boolean existsUserByLoginIdExcludingUserId(String loginId, Integer userId) {
+        return userInfoDao.ExcludingUserId(loginId, userId);
+    }
 }

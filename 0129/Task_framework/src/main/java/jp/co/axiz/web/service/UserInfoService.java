@@ -17,4 +17,6 @@ public interface UserInfoService {
     public boolean existsUserByLoginId(String loginId);
 
     public void insert(UserInfo userInfo);
+
+    public boolean existsUserByLoginIdExcludingUserId(String loginId, Integer userId);
 }

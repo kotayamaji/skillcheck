@@ -18,4 +18,6 @@ public interface UserInfoDao {
     public UserInfo findByLoginIdAndPassword(String loginId, String password);
 
     public void insert(UserInfo user);
+
+    public boolean ExcludingUserId(String loginId, Integer userId);
 }
