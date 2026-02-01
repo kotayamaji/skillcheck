@@ -131,6 +131,6 @@ public class StudentDaoImpl implements StudentDao {
         param.addValue("grade", student.getGrade());
         param.addValue("hometown", student.getHometown());
         param.addValue("major_id", student.getMajorId());
-        jdbcTemplate.update(UPDATE, param);;
+        jdbcTemplate.update(UPDATE, param);
     }
 }

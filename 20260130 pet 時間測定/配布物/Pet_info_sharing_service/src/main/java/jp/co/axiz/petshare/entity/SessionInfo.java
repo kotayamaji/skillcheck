@@ -1,0 +1,36 @@
+package jp.co.axiz.petshare.entity;
+
+import java.util.List;
+
+/**
+ * セッション情報を纏めて管理するためのクラス
+ */
+public class SessionInfo {
+    List<Pet> petSearchResult; // ペット検索結果
+    User userInfo;
+    List<AnimalType> animaltypes;
+
+    public List<Pet> getPetSearchResult() {
+        return petSearchResult;
+    }
+
+    public User getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(User userinfo) {
+        this.userInfo = userinfo;
+    }
+
+    public void setPetSearchResult(List<Pet> petSearchResult) {
+        this.petSearchResult = petSearchResult;
+    }
+
+    public List<AnimalType> getAnimaltypes() {
+        return animaltypes;
+    }
+
+    public void setAnimaltypes(List<AnimalType> animalTypes) {
+        this.animaltypes = animalTypes;
+    }
+}
