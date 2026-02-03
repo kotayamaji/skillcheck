@@ -20,4 +20,6 @@ public interface UserInfoDao {
     public void insert(UserInfo user);
 
     public boolean ExcludingUserId(String loginId, Integer userId);
+
+    public void update(UserInfo userInfo);
 }

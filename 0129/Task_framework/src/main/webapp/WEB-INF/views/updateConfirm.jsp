@@ -1,46 +1,58 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+  pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>更新内容確認画面</title>
+<title><fmt:message key="title.update.confirm" /></title>
 <link href="css/commons.css" rel="stylesheet">
 </head>
 <body>
   <p>これでよろしいですか？</p>
 
-  <p class="error">エラーメッセージ</p>
+  <c:if test="${not empty errMsg}">
+    <p class="error">${fn:escapeXml(errMsg)}</p>
+  </c:if>
 
-  <form action="updateResult.html" method="post">
+  <form:form action="update" method="post" modelAttribute="updateForm">
     <fieldset class="label-130">
       <div>
-        <label>ID</label>
-        <input type="text" name="loginId" value="n_alice" readonly>
+        <label><fmt:message key="lbl.id" /></label>
+        <form:input path="loginId" readonly="true" />
       </div>
       <div>
-        <label>名前</label>
-        <input type="text" name="userName" value="alice" readonly>
+        <label><fmt:message key="lbl.user.name" /></label>
+        <form:input path="userName" readonly="true" />
       </div>
       <div>
-        <label>TEL</label>
-        <input type="text" name="tel" value="19980406" readonly>
+        <label><fmt:message key="lbl.tel" /></label>
+        <form:input path="tel" readonly="true" />
       </div>
       <div>
-        <label>権限</label>
-        <input type="text" name="roleName" value="一般" readonly>
+        <label><fmt:message key="lbl.role" /></label>
+        <form:input path="roleName" readonly="true" />
       </div>
       <div>
-        <label>PASS（再入力）</label>
-        <input type="password" name="rePass">
+        <label><fmt:message key="lbl.pass" /> <fmt:message
+            key="lbl.confirm.input" /></label>
+        <form:password path="confirmPassword" showPassword="true" />
       </div>
     </fieldset>
     <div>
-      <button type="submit">更新</button>
-      <button type="submit"
-        onclick="location.href='updateInput.html'; return false;">戻る</button>
+      <form:button name="update">
+        <fmt:message key="btn.update" />
+      </form:button>
+      <form:button name="back">
+        <fmt:message key="btn.back" />
+      </form:button>
     </div>
-  </form>
+  </form:form>
   <div>
-    <a href="menu.html">メニューに戻る</a>
+    <a href="menu"><fmt:message key="btn.menu" /></a>
   </div>
 </body>
 </html>

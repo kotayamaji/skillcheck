@@ -155,9 +155,40 @@ public class UpdateController {
         // 次画面の入力フォーム用にroleNameをセット
         form.setRoleName(roleName);
 
-
-
         return "updateConfirm";
+    }
+
+    /*
+     * 更新処理 (更新内容確認画面の更新ボタン押下)
+     */
+    @PostMapping(value = "/update", params = "update")
+    public String updateExecute(@Validated @ModelAttribute("updateForm") UpdateForm form, BindingResult bindingResult,
+            Model model) {
+
+        // セッション情報取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+
+        // 変更後のユーザ情報をセッションから取得
+        UserInfo updateUser = sessionInfo.getUpdateUser();
+
+        // パスワードが一致しているかチェック
+        if (!updateUser.getPassword().equals(form.getConfirmPassword())) {
+            String errMsg = messageSource.getMessage("password.not.match.error", null, Locale.getDefault());
+            model.addAttribute("errMsg", errMsg);
+
+            form.setConfirmPassword("");
+
+            return "updateConfirm";
+        }
+
+        // 更新処理
+        userInfoService.update(updateUser);
+
+        // 更新前/後データをセッションから破棄
+        sessionInfo.setPrevUpdateUser(null);
+        sessionInfo.setUpdateUser(null);
+
+        return "updateResult";
     }
 
     /*
