@@ -9,6 +9,7 @@ public class SessionInfo {
     List<Pet> petSearchResult; // ペット検索結果
     User userInfo;
     List<AnimalType> animaltypes;
+    List<AnimalType> animalserch;
 
     public List<Pet> getPetSearchResult() {
         return petSearchResult;
@@ -16,6 +17,14 @@ public class SessionInfo {
 
     public User getUserInfo() {
         return userInfo;
+    }
+
+    public List<AnimalType> getAnimalserch() {
+        return animalserch;
+    }
+
+    public void setAnimalserch(List<AnimalType> animalserch) {
+        this.animalserch = animalserch;
     }
 
     public void setUserInfo(User userinfo) {

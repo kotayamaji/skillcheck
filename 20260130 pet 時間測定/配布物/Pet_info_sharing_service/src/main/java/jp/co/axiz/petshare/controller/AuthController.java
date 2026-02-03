@@ -71,7 +71,7 @@ public class AuthController {
         // ユーザー情報取得
         User user = userInfoService.authentication(form.getUserName(), form.getPassword());
 
-        if (user.getId() == null) {
+        if (user == null) {
             // ログイン失敗
             model.addAttribute("errMsg", errMsg);
             return "/index";
@@ -80,9 +80,12 @@ public class AuthController {
             SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
             sessionInfo.setUserInfo(user);
             List<AnimalType> animaltypes = userInfoService.animalTypes();
+            List<AnimalType> animalserch = userInfoService.animalTypes();
+            sessionInfo.setAnimalserch(animalserch);
             AnimalType animaltype = new AnimalType(0, "すべて");
             animaltypes.add(0, animaltype);
             sessionInfo.setAnimaltypes(animaltypes);
+
             // セッションに保存
             session.setAttribute("sessionInfo", sessionInfo);
 

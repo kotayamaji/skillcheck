@@ -45,10 +45,11 @@ public class PetDaoImpl implements PetDao {
      */
     @Override
     public List<Pet> find(Pet pet) {
-
-        if (pet == null || pet.isEmptyCondition() && pet.getAnimalTypeId() == 0) {
-            // 検索条件が無い場合は全検索
-            return findAll();
+        if (pet.getAnimalTypeId() != null) {
+            if (pet.getAnimalTypeId() == 0 && pet.getName() == "") {
+                // 検索条件が無い場合は全検索
+                return findAll();
+            }
         }
 
         // 検索条件の有無に応じて、sqlのWHERE句に指定する条件文、
