@@ -66,6 +66,7 @@ public class PetsController {
     @GetMapping("/pets/register")
     public String search(@ModelAttribute("updateForm") UpdateForm form,
             @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+                
         return "/pets/register";
     }
 
@@ -118,6 +119,10 @@ public class PetsController {
             @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+        if (sessionInfo.getUserInfo() == null) {
+            // ログインしていない場合はトップに戻る
+            return "index";
+        }
 
         // 検索条件をEntityにセット
         Pet pet = new Pet();
@@ -145,6 +150,10 @@ public class PetsController {
     @GetMapping("/pets/detail")
     public String detail(Integer id, @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+        if (sessionInfo.getUserInfo() == null) {
+            // ログインしていない場合はトップに戻る
+            return "index";
+        }
         // 対象データ取得
         Pet pet = petService.findById(id);
 

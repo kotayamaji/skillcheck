@@ -143,7 +143,8 @@ public class PetsController {
      * 登録画面
      */
     @GetMapping("/pets/register")
-    public String register(@ModelAttribute("registerForm") RegisterForm registerForm,
+    public String register(@ModelAttribute("loginForm") LoginForm loginForm,
+            @ModelAttribute("registerForm") RegisterForm registerForm,
             Model model) {
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
@@ -173,11 +174,6 @@ public class PetsController {
         // 入力値チェック
         if (bindingResult.hasErrors()) {
             return "/pets/register";
-        }
-
-        if (sessionInfo.getUserInfo() == null) {
-            // ログインしていない場合はトップに戻る
-            return "/index";
         }
 
         // 入力値をEntityにセット

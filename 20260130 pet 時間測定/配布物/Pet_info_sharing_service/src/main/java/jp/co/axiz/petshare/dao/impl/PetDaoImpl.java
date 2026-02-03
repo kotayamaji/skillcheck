@@ -45,7 +45,7 @@ public class PetDaoImpl implements PetDao {
      */
     @Override
     public List<Pet> find(Pet pet) {
-        if (pet.getAnimalTypeId() != null) {
+        if (pet.getAnimalTypeId() != 0) {
             if (pet.getAnimalTypeId() == 0 && pet.getName() == "") {
                 // 検索条件が無い場合は全検索
                 return findAll();
@@ -70,7 +70,7 @@ public class PetDaoImpl implements PetDao {
             param.addValue("name", name);
         }
 
-        if (pet.getAnimalTypeId() != null) {
+        if (pet.getAnimalTypeId() != 0) {
             condition.add("p.animal_type_id = :animal_type_id");
             param.addValue("animal_type_id", pet.getAnimalTypeId());
         }
