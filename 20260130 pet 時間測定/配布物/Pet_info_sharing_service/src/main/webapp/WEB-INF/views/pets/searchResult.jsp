@@ -30,6 +30,9 @@
                     </a>
                   </li>
                   <li>
+                    ${fn:escapeXml(sessionInfo.userInfo.dispName)}
+                  </li>
+                  <li>
                     <form action="/logout" method="post">
                       <button type="submit">
                         <fmt:message key="btn.logout" />

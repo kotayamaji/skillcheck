@@ -29,6 +29,9 @@
                                         </a>
                                     </li>
                                     <li>
+                                        ${fn:escapeXml(sessionInfo.userInfo.dispName)}
+                                    </li>
+                                    <li>
                                         <form action="/logout" method="post">
                                             <button type="submit">
                                                 <fmt:message key="btn.logout" />
@@ -58,7 +61,7 @@
                                 <div>
                                     <label>種類</label>
                                     <form:select path="petTypeId">
-                                        <form:options items="${sessionInfo.animaltypes}" itemLabel="name"
+                                        <form:options items="${sessionInfo.animalserch}" itemLabel="name"
                                             itemValue="id" />
                                     </form:select>
                                 </div>
