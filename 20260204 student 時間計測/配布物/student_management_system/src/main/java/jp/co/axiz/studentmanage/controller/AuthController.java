@@ -1,5 +1,6 @@
 package jp.co.axiz.studentmanage.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpSession;
 import jp.co.axiz.studentmanage.entity.SessionInfo;
 import jp.co.axiz.studentmanage.entity.User;
+import jp.co.axiz.studentmanage.entity.Major;
 import jp.co.axiz.studentmanage.form.LoginForm;
 import jp.co.axiz.studentmanage.service.UserService;
 import jp.co.axiz.studentmanage.util.ParamUtil;
@@ -76,9 +78,11 @@ public class AuthController {
         } else {
             // セッション情報取得
             SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+            List<Major> majorList = userInfoService.major();
 
             // ログインユーザ情報をセット
             sessionInfo.setLoginUser(user);
+            sessionInfo.setMajorsList(majorList);
 
             // セッションに保存
             session.setAttribute("sessionInfo", sessionInfo);

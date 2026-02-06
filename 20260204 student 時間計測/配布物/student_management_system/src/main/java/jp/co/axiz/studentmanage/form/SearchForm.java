@@ -6,6 +6,7 @@ package jp.co.axiz.studentmanage.form;
 public class SearchForm {
 
     private String studentName;
+    private Integer grade;
 
     public String getStudentName() {
         return studentName;
@@ -13,6 +14,14 @@ public class SearchForm {
 
     public void setStudentName(String studentName) {
         this.studentName = studentName;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer garade) {
+        this.grade = garade;
     }
 
 }

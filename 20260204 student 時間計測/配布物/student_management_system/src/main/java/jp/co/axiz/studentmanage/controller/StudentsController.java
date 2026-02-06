@@ -19,6 +19,7 @@ import jp.co.axiz.studentmanage.entity.Student;
 import jp.co.axiz.studentmanage.form.LoginForm;
 import jp.co.axiz.studentmanage.form.RegisterForm;
 import jp.co.axiz.studentmanage.form.SearchForm;
+import jp.co.axiz.studentmanage.form.UpdateForm;
 import jp.co.axiz.studentmanage.service.StudentService;
 import jp.co.axiz.studentmanage.util.ParamUtil;
 
@@ -83,7 +84,8 @@ public class StudentsController {
      * 検索結果画面
      */
     @GetMapping("/students/searchResult")
-    public String searchResult(@ModelAttribute("searchForm") SearchForm searchForm,
+    public String searchResult(@Validated @ModelAttribute("searchForm") SearchForm searchForm,
+            BindingResult bindingResult,
             @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
@@ -93,9 +95,15 @@ public class StudentsController {
             return "/index";
         }
 
+        // 入力値チェック
+        if (bindingResult.hasErrors()) {
+            return "/students/search";
+        }
+
         // 検索条件をEntityにセット
         Student student = new Student();
         student.setStudentName(searchForm.getStudentName());
+        student.setGrade(searchForm.getGrade());
 
         // 検索処理
         List<Student> resultList = studentService.find(student);
@@ -145,7 +153,16 @@ public class StudentsController {
      */
     @PostMapping("/students/register")
     public String registerExecute(@Validated @ModelAttribute("registerForm") RegisterForm form,
+            @ModelAttribute("loginForm") LoginForm loginForm,
             BindingResult bindingResult, Model model) {
+
+        // セッション情報を取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+
+        if (sessionInfo.getLoginUser() == null) {
+            // ログインしていない場合はトップに戻る
+            return "/index";
+        }
 
         // 入力値チェック
         if (bindingResult.hasErrors()) {
@@ -156,11 +173,62 @@ public class StudentsController {
         Student student = new Student();
         student.setStudentName(form.getStudentName());
         student.setGrade(form.getGrade());
+        student.setHometown(form.getHometown());
+        student.setMajorId(form.getMajorId());
 
         // 登録処理
         studentService.insert(student);
 
         return "/students/menu";
+    }
+
+    /*
+     * 編集処理
+     */
+    @PostMapping(value = "/students/searchResult", params = "updateStudentId")
+    public String updateExecute(Integer updateStudentId, Model model,
+            @Validated @ModelAttribute("updateForm") UpdateForm form,
+            BindingResult bindingResult,
+            @ModelAttribute("loginForm") LoginForm loginForm) {
+        // セッション情報を取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+
+        if (sessionInfo.getLoginUser() == null) {
+            // ログインしていない場合はトップに戻る
+            return "/index";
+        }
+
+        // 入力値チェック
+        if (bindingResult.hasErrors()) {
+            return "/students/update";
+        }
+
+        // 更新前情報をセッションに保存
+        Student student = studentService.findById(updateStudentId);
+
+        if (student == null) {
+            // データが存在しない場合
+            String errMsg = messageSource.getMessage("id.not.found.error", null, Locale.getDefault());
+            model.addAttribute("errMsg", errMsg);
+            return "update";
+        }
+
+        // 取得したデータをEntityへセット
+        Student studentup = new Student(
+                student.getStudentName(),
+                student.getGrade(),
+                student.getHometown(),
+                student.getMajorId());
+
+        sessionInfo.setPrevUpdatestudent(student);
+
+        // 次画面の入力フォーム用にデータをセット
+        form.setGrade(studentup.getGrade());
+        form.setHometown(studentup.getHometown());
+        form.setMajorId(studentup.getMajorId());
+        form.setStudentName(studentup.getStudentName());
+
+        return "/students/update";
     }
 
 }

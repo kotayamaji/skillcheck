@@ -3,11 +3,7 @@ package jp.co.axiz.studentmanage.form;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-/*
- * 登録画面用フォーム
- */
-public class RegisterForm {
-
+public class UpdateForm {
     @NotBlank
     private String studentName;
 
@@ -17,32 +13,6 @@ public class RegisterForm {
     private String hometown;
 
     private Integer majorId;
-
-    public String getHometown() {
-        return hometown;
-    }
-
-    public void setHometown(String hometown) {
-        this.hometown = hometown;
-    }
-
-    public Integer getMajorId() {
-        return majorId;
-    }
-
-    public void setMajorId(Integer majorId) {
-        this.majorId = majorId;
-    }
-
-    public String getMajorName() {
-        return majorName;
-    }
-
-    public void setMajorName(String majorName) {
-        this.majorName = majorName;
-    }
-
-    private String majorName;
 
     public String getStudentName() {
         return studentName;
@@ -58,6 +28,22 @@ public class RegisterForm {
 
     public void setGrade(Integer grade) {
         this.grade = grade;
+    }
+
+    public String getHometown() {
+        return hometown;
+    }
+
+    public void setHometown(String hometown) {
+        this.hometown = hometown;
+    }
+
+    public Integer getMajorId() {
+        return majorId;
+    }
+
+    public void setMajorId(Integer majorId) {
+        this.majorId = majorId;
     }
 
 }

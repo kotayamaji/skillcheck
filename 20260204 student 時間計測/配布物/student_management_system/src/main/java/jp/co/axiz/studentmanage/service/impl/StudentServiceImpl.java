@@ -39,4 +39,9 @@ public class StudentServiceImpl implements StudentService {
     public void delete(Integer id) {
         studentDao.delete(id);
     }
+
+    @Override
+    public Student findById(Integer updateStudentId) {
+        return studentDao.findById(updateStudentId);
+    }
 }

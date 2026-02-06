@@ -54,6 +54,8 @@
                     <th>
                       <fmt:message key="lbl.grade" />
                     </th>
+                    <th>出身</th>
+                    <th>専攻</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -62,10 +64,17 @@
                     <tr>
                       <td>${fn:escapeXml(student.studentName)}</td>
                       <td>${student.grade}</td>
+                      <td>${student.hometown}</td>
+                      <td>${student.majorName}</td>
                       <c:if test="${sessionInfo.loginUser.isAdmin()}">
                         <td>
                           <button name="deleteStudentId" value="${student.studentId}">
                             <fmt:message key="btn.delete" />
+                          </button>
+                        </td>
+                        <td>
+                          <button name="updateStudentId" value="${student.studentId}">
+                            編集
                           </button>
                         </td>
                       </c:if>

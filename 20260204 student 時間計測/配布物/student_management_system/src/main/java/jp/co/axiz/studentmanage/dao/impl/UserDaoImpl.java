@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import jp.co.axiz.studentmanage.dao.UserDao;
+import jp.co.axiz.studentmanage.entity.Major;
 import jp.co.axiz.studentmanage.entity.User;
 
 /*
@@ -21,6 +22,8 @@ public class UserDaoImpl implements UserDao {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     private static final String SELECT_BY_USER_NAME_AND_PASSWORD = "SELECT u.user_id, u.user_name, u.password, u.disp_name, u.role_id, u.is_active , u.role_id , r.role_name FROM student_management.users u JOIN roles r ON u.role_id = r.role_id WHERE u.user_name = :userName AND u.password = :password AND u.is_active = 1 ;";
+
+    private static final String MAJOR = "SELECT * FROM majors";
 
     /**
      * user_name、passwordによる検索
@@ -35,6 +38,13 @@ public class UserDaoImpl implements UserDao {
                 new BeanPropertyRowMapper<User>(User.class));
 
         return resultList.isEmpty() ? null : resultList.get(0);
+    }
+
+    @Override
+    public List<Major> major() {
+        List<Major> resultList = jdbcTemplate.query(MAJOR,
+                new BeanPropertyRowMapper<Major>(Major.class));
+        return resultList;
     }
 
 }

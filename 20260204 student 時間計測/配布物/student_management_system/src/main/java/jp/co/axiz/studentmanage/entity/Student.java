@@ -9,14 +9,40 @@ public class Student {
 	private Integer studentId;
 	private String studentName;
 	private Integer grade;
+	private Integer majorId;
+	private String majorName;
+	private String hometown;
 
 	public Student() {
+	}
+
+	public Integer getMajorId() {
+		return majorId;
+	}
+
+	public void setMajorId(Integer majorId) {
+		this.majorId = majorId;
+	}
+
+	public String getMajorName() {
+		return majorName;
+	}
+
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
 	}
 
 	public Student(Integer studentId, String studentName, Integer grade) {
 		this.studentId = studentId;
 		this.studentName = studentName;
 		this.grade = grade;
+	}
+
+	public Student(String studentName2, Integer grade2, String hometown2, Integer majorId2) {
+		this.studentName = studentName2;
+		this.grade = grade2;
+		this.hometown = hometown2;
+		this.majorId = majorId2;
 	}
 
 	public Integer getStudentId() {
@@ -49,6 +75,14 @@ public class Student {
 	 */
 	public boolean isEmptyCondition() {
 		return ParamUtil.isNullOrEmpty(studentName);
+	}
+
+	public String getHometown() {
+		return hometown;
+	}
+
+	public void setHometown(String hometown) {
+		this.hometown = hometown;
 	}
 
 }
