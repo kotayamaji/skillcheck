@@ -33,6 +33,7 @@ public class StudentDaoImpl implements StudentDao {
 
     private static final String FINDBYID = "SELECT * FROM students WHERE student_id = :studentId";
 
+    private static final String UPDATE = "UPDATE students SET student_name = :student_name, grade = :grade, hometown = :hometown, major_id = :major_id WHERE student_id = :student_id ";
     /**
      * 全件取得
      */
@@ -49,6 +50,7 @@ public class StudentDaoImpl implements StudentDao {
      */
     @Override
     public List<Student> find(Student student) {
+        
         if (student.getGrade() == null) {
             if (student == null || student.isEmptyCondition()) {
                 // 検索条件が無い場合は全検索
@@ -121,5 +123,20 @@ public class StudentDaoImpl implements StudentDao {
 
         return resultList.get(0);
 
+    }
+
+    @Override
+    public void update(Student student) {
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        //:student_name, grade = :grade, hometown = :hometown, major_id = :major_id WHERE student_id = :student_id ";
+
+        param.addValue("student_id", student.getStudentId());
+        param.addValue("student_name", student.getStudentName());
+        param.addValue("grade", student.getGrade());
+        param.addValue("hometown", student.getHometown());
+        param.addValue("major_id", student.getMajorId());
+
+
+        jdbcTemplate.update(UPDATE, param);
     }
 }

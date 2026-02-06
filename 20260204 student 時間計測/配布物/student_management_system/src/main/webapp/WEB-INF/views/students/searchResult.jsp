@@ -29,6 +29,12 @@
                       <fmt:message key="btn.menu" />
                     </a>
                   </li>
+                                    <li>
+                    ${fn:escapeXml(sessionInfo.loginUser.roleName)}
+                  </li>
+                  <li>
+                    ${fn:escapeXml(sessionInfo.loginUser.dispName)}
+                  </li>
                   <li>
                     <form action="/logout" method="post">
                       <button type="submit">

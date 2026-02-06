@@ -38,11 +38,12 @@ public class Student {
 		this.grade = grade;
 	}
 
-	public Student(String studentName2, Integer grade2, String hometown2, Integer majorId2) {
+	public Student(String studentName2, Integer grade2, String hometown2, Integer majorId2 ,Integer studentId) {
 		this.studentName = studentName2;
 		this.grade = grade2;
 		this.hometown = hometown2;
 		this.majorId = majorId2;
+		this.studentId = studentId;
 	}
 
 	public Integer getStudentId() {
@@ -67,6 +68,14 @@ public class Student {
 
 	public void setGrade(Integer grade) {
 		this.grade = grade;
+	}
+
+	public Student(Integer studentId, String studentName, Integer grade, Integer majorId, String hometown) {
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.grade = grade;
+		this.majorId = majorId;
+		this.hometown = hometown;
 	}
 
 	/**

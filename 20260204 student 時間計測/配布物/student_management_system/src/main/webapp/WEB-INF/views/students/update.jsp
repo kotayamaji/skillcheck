@@ -53,7 +53,7 @@
                             <span class="required"></span>は必須です
                         </p>
 
-                        <form:form action="/students/menu" method="post" modelAttribute="updateForm">
+                        <form:form action="/students/search" method="post" modelAttribute="updateForm">
                             <fieldset class="label-60">
                                 <div>
                                     <label class="required">
