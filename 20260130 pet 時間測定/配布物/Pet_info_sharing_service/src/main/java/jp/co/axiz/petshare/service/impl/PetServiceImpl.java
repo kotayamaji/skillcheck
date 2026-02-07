@@ -37,7 +37,7 @@ public class PetServiceImpl implements PetService {
         pet.setId(id);
 
         // データ取得
-        List<Pet> resultList = petDao.find(pet);
+        List<Pet> resultList = petDao.findById(pet.getId());
         return resultList.isEmpty() ? null : resultList.get(0);
     }
 

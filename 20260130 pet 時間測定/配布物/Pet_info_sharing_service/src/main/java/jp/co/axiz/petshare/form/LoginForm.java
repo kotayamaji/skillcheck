@@ -1,10 +1,16 @@
 package jp.co.axiz.petshare.form;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /*
  * ログイン画面用フォーム
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginForm {
 
     @NotBlank
@@ -13,19 +19,4 @@ public class LoginForm {
     @NotBlank
     private String password;
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String _password) {
-        this.password = _password;
-    }
 }

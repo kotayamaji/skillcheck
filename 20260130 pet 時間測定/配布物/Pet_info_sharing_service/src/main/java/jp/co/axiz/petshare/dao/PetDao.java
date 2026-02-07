@@ -15,4 +15,6 @@ public interface PetDao {
     public void Insert(Pet pet);
 
     public void delete(Integer deletepetId);
+
+    public List<Pet> findById(Integer animalTypeId);
 }

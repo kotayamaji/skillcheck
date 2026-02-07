@@ -80,10 +80,6 @@ public class AuthController {
             SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
             sessionInfo.setUserInfo(user);
             List<AnimalType> animaltypes = userInfoService.animalTypes();
-            List<AnimalType> animalserch = userInfoService.animalTypes();
-            sessionInfo.setAnimalserch(animalserch);
-            AnimalType animaltype = new AnimalType(0, "すべて");
-            animaltypes.add(0, animaltype);
             sessionInfo.setAnimaltypes(animaltypes);
 
             // セッションに保存

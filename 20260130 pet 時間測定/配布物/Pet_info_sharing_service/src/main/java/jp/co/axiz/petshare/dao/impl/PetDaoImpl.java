@@ -26,9 +26,11 @@ public class PetDaoImpl implements PetDao {
             +
             "WHERE is_deleted = FALSE ";
 
-    private static final String ORDER_BY = " ORDER BY id";
+    private static final String ORDER_BY = " ORDER BY p.id";
     private static final String INSERT = "INSERT INTO pet_info_sharing.pets(name, animal_type_id, description, user_id) VALUES (:name, :animal_type_id, :description, :user_id)";
     private static final String DELETE = "UPDATE pet_info_sharing.pets SET is_deleted = '1' WHERE id = :id;";
+
+    private static final String FINDBYID = "SELECT p.id, p.name, animal_type_id, description, p.user_id, a.name animalTypeName , disp_name , is_deleted FROM pets p JOIN animal_types a ON animal_type_id = a.id JOIN users u ON p.user_id = u.id WHERE p.id = :id AND is_deleted = 0 ORDER BY p.id";
 
     /**
      * 全件取得
@@ -45,7 +47,7 @@ public class PetDaoImpl implements PetDao {
      */
     @Override
     public List<Pet> find(Pet pet) {
-        if (pet.getAnimalTypeId() != 0) {
+        if (pet.getAnimalTypeId() == 0) {
             if (pet.getAnimalTypeId() == 0 && pet.getName() == "") {
                 // 検索条件が無い場合は全検索
                 return findAll();
@@ -104,5 +106,14 @@ public class PetDaoImpl implements PetDao {
         MapSqlParameterSource param = new MapSqlParameterSource();
         param.addValue("id", deletepetId);
         jdbcTemplate.update(DELETE, param);
+    }
+
+    @Override
+    public List<Pet> findById(Integer animalTypeId) {
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("id", animalTypeId);
+        List<Pet> resultList = jdbcTemplate.query(FINDBYID, param, new BeanPropertyRowMapper<Pet>(Pet.class));
+
+        return resultList;
     }
 }

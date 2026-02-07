@@ -61,6 +61,7 @@
                 <div>
                   <label>種類</label>
                   <form:select path="id">
+                    <form:option value="0">すべて</form:option>
                     <form:options items="${sessionInfo.animaltypes}" itemLabel="name" itemValue="id" />
                   </form:select>
                 </div>

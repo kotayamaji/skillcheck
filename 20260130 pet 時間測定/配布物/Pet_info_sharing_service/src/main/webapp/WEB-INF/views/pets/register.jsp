@@ -61,7 +61,7 @@
                                 <div>
                                     <label>種類</label>
                                     <form:select path="petTypeId">
-                                        <form:options items="${sessionInfo.animalserch}" itemLabel="name"
+                                        <form:options items="${sessionInfo.animaltypes}" itemLabel="name"
                                             itemValue="id" />
                                     </form:select>
                                 </div>
