@@ -22,4 +22,6 @@ public interface UserInfoDao {
     public boolean ExcludingUserId(String loginId, Integer userId);
 
     public void update(UserInfo userInfo);
+
+    public void delete(Integer id);
 }

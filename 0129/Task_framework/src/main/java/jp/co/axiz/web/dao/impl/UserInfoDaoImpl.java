@@ -28,7 +28,8 @@ public class UserInfoDaoImpl implements UserInfoDao {
     private static final String ORDER_BY = " ORDER BY user_id";
     private static final String INSERT = "INSERT INTO user_info (login_id, user_name, telephone, password, role_id) VALUES (:loginId, :userName, :telephone, :password, :roleId)";
     private static final String SELECT_BY_LOGIN_ID_EXCLUDING_USER_ID = "SELECT user_id, login_id, user_name, telephone, password, r.role_id, role_name FROM user_info u JOIN role r ON u.role_id = r.role_id WHERE login_id = :loginId AND user_id <> :userId";
-        private static final String UPDATE = "UPDATE user_info SET login_id = :loginId, user_name = :userName, telephone = :telephone, password = :password, role_id = :roleId WHERE user_id = :userId";
+    private static final String UPDATE = "UPDATE user_info SET login_id = :loginId, user_name = :userName, telephone = :telephone, password = :password, role_id = :roleId WHERE user_id = :userId";
+
     /**
      * 全件取得
      */
@@ -137,11 +138,15 @@ public class UserInfoDaoImpl implements UserInfoDao {
 
         List<UserInfo> resultList = jdbcTemplate.query(SELECT_BY_LOGIN_ID_EXCLUDING_USER_ID, param,
                 new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
-        user = resultList.get(0);
-        if (user == null) {
+        if (resultList.size() == 0) {
             exsist = false;
         }
-        
+
+        if (resultList.size() != 0) {
+            user = resultList.get(0);
+            exsist = true;
+        }
+
         return exsist;
 
     }
@@ -157,5 +162,11 @@ public class UserInfoDaoImpl implements UserInfoDao {
         param.addValue("roleId", user.getRoleId());
 
         jdbcTemplate.update(UPDATE, param);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }

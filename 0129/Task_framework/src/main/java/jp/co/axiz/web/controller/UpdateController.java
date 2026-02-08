@@ -85,10 +85,10 @@ public class UpdateController {
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
-        //更新前情報保存
+        // 更新前情報保存
         sessionInfo.setPrevUpdateUser(user);
 
-        //更新後
+        // 更新後
         sessionInfo.setUpdateUser(userup);
 
         form.setLoginId(user.getLoginId());
@@ -101,12 +101,10 @@ public class UpdateController {
         return "updateInput";
     }
 
-
-
     /*
      * 確認ボタン押下時
      */
-     @PostMapping(value = "/updateConfirm", params = "confirm")
+    @PostMapping(value = "/updateConfirm", params = "confirm")
     public String insertExecute(@Validated @ModelAttribute("updateForm") UpdateForm form, BindingResult bindingResult,
             Model model) {
 
@@ -128,7 +126,7 @@ public class UpdateController {
         updateUser.setPassword(form.getPassword());
         updateUser.setRoleId(roleId);
         updateUser.setRoleName(roleName);
-        
+
         UserInfo prevUser = sessionInfo.getPrevUpdateUser();
 
         if (prevUser.equals(updateUser)) {
@@ -156,6 +154,16 @@ public class UpdateController {
         form.setRoleName(roleName);
 
         return "updateConfirm";
+    }
+
+    /*
+     * 更新画面へ戻る (登録確認画面の「戻る」ボタン押下時)
+     */
+    @PostMapping(value = "/updateConfirm", params = "back")
+    public String updateBack(@ModelAttribute("updateForm") UpdateForm form, BindingResult bindingResult,
+            Model model) {
+
+        return "update";
     }
 
     /*
@@ -191,20 +199,24 @@ public class UpdateController {
         return "updateResult";
     }
 
-    /*
-     * 登録画面へ戻る (登録確認画面の「戻る」ボタン押下時)
-     */
-    @PostMapping(value = "/updateb", params = "back")
-    public String insertBack(@ModelAttribute("insertForm") InsertForm form, Model model) {
-        // セッション情報を取得
+    @PostMapping(value = "/update", params = "back")
+    public String updateExecuteback(@ModelAttribute("updateForm") UpdateForm form,
+            BindingResult bindingResult,
+            Model model) {
+
+        // セッション情報取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
-        // セッションに保存したユーザ情報を取得し、フォームにセット
-        UserInfo user = sessionInfo.getRegisterUser();
+        UserInfo user = sessionInfo.getPrevUpdateUser();
 
-        form.setRoleId(user.getRoleId());
+        form.setLoginId(user.getLoginId());
+        form.setUserName(user.getUserName());
+        form.setTel(user.getTelephone());
         form.setPassword(user.getPassword());
+        form.setRoleId(user.getRoleId());
+        form.setRoleName(user.getRoleName());
 
-        return "insert";
+        return "updateInput";
     }
+
 }
