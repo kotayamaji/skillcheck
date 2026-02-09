@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import jp.co.axiz.productmanage.dao.UserDao;
+import jp.co.axiz.productmanage.entity.Category;
 import jp.co.axiz.productmanage.entity.User;
 
 /*
@@ -29,6 +30,8 @@ public class UserDaoImpl implements UserDao {
             +
             "WHERE user_name = :userName AND password = :password";
 
+    private static final String CATEGORY = "SELECT * FROM categories";
+
     public UserDaoImpl(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -46,6 +49,15 @@ public class UserDaoImpl implements UserDao {
                 new BeanPropertyRowMapper<User>(User.class));
 
         return resultList.isEmpty() ? null : resultList.get(0);
+    }
+
+    @Override
+    public List<Category> categorys() {
+        List<Category> resultList = jdbcTemplate.query(
+                CATEGORY,
+                new BeanPropertyRowMapper<Category>(Category.class));
+
+        return resultList;
     }
 
 }

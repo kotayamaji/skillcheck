@@ -67,6 +67,8 @@ public class AuthController {
         // ログインユーザ情報をセット
         sessionInfo.setLoginUser(user);
 
+        sessionInfo.setCategories(userInfoService.categorys());
+
         // セッションに保存
         session.setAttribute("sessionInfo", sessionInfo);
 

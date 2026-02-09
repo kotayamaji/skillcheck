@@ -95,6 +95,7 @@ public class ProductsController {
         // 検索条件をEntityにセット
         Product product = new Product();
         product.setProductName(searchForm.getProductName());
+        product.setCategoryId(searchForm.getCategoryId());
 
         // 検索処理
         List<Product> resultList = productService.find(product);

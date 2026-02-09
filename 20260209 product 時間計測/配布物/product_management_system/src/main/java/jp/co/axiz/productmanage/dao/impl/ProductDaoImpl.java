@@ -46,11 +46,18 @@ public class ProductDaoImpl implements ProductDao {
      */
     @Override
     public List<Product> find(Product product) {
+        if (product.getCategoryId() == 0) {
 
-        if (product == null || product.isEmptyCondition()) {
-            // 検索条件が無い場合は全検索
-            return findAll();
+            if (product.getCategoryId() == 0 && product.getProductName() == "") {
+                return findAll();
+            }
+
         }
+
+        // if (product == null || product.isEmptyCondition()) {
+        // // 検索条件が無い場合は全検索
+        // return findAll();
+        // }
 
         // 検索条件の有無に応じて、sqlのWHERE句に指定する条件文、
         // Parameterをストックしていく。
@@ -59,6 +66,7 @@ public class ProductDaoImpl implements ProductDao {
 
         Integer productid = product.getProductId();
         String productName = product.getProductName();
+        Integer categoryId = product.getCategoryId();
 
         if (productid != null) {
             condition.add("product_id = :productId");
@@ -68,6 +76,11 @@ public class ProductDaoImpl implements ProductDao {
         if (!ParamUtil.isNullOrEmpty(productName)) {
             condition.add("product_name LIKE :productName");
             param.addValue("productName", "%" + productName + "%");
+        }
+
+        if (categoryId != null) {
+            condition.add("category_id = :categoryId");
+            param.addValue("categoryId", categoryId);
         }
 
         // WHERE句の文字列生成

@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-ProductManagementSystemApplication<product_management_system>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "jp.co.axiz.productmanage.product_management_system.ProductManagementSystemApplication",
+      "projectName": "product_management_system",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ProductManagementSystemApplication<product_management_system>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "jp.co.axiz.productmanage.ProductManagementSystemApplication",
+      "projectName": "product_management_system",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
