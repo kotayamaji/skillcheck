@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import jp.co.axiz.productmanage.entity.Product;
 import jp.co.axiz.productmanage.entity.SessionInfo;
 import jp.co.axiz.productmanage.form.LoginForm;
+import jp.co.axiz.productmanage.form.Registerform;
 import jp.co.axiz.productmanage.form.SearchForm;
 import jp.co.axiz.productmanage.service.ProductService;
 import jp.co.axiz.productmanage.util.ParamUtil;
@@ -76,6 +77,20 @@ public class ProductsController {
         }
 
         return "/products/search";
+    }
+
+    @GetMapping("/products/register")
+    public String register(@ModelAttribute("registerForm") Registerform registerForm,
+            @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+        // セッション情報を取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+
+        if (sessionInfo.getLoginUser() == null) {
+            // ログインしていない場合はトップに戻る
+            return "/index";
+        }
+
+        return "/products/register";
     }
 
     /*

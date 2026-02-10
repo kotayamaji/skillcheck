@@ -20,9 +20,7 @@ public class ProductDaoImpl implements ProductDao {
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    private static final String SELECT = "SELECT product_id, product_name, price, category_id, " +
-            "remarks, user_id " +
-            "FROM products ";
+    private static final String SELECT = "SELECT users.user_name, users.password, users.disp_name, users.role_id, users.is_active, roles.role_name, products.product_id, products.product_name, products.price, product_management_system.products.remarks, product_management_system.products.user_id, product_management_system.products.is_deleted, product_management_system.categories.category_name, product_management_system.products.category_id FROM users INNER JOIN roles ON roles.role_id = users.role_id INNER JOIN product_management_system.products ON product_management_system.products.user_id = users.user_id INNER JOIN product_management_system.categories ON product_management_system.products.category_id = product_management_system.categories.category_id ";
 
     private static final String ORDER_BY = " ORDER BY product_id";
 
@@ -46,12 +44,14 @@ public class ProductDaoImpl implements ProductDao {
      */
     @Override
     public List<Product> find(Product product) {
-        if (product.getCategoryId() == 0) {
+        if (product.getCategoryId() != null) {
+            if (product.getCategoryId() == 0) {
 
-            if (product.getCategoryId() == 0 && product.getProductName() == "") {
-                return findAll();
+                if (product.getCategoryId() == 0 && product.getProductName() == "") {
+                    return findAll();
+                }
+
             }
-
         }
 
         // if (product == null || product.isEmptyCondition()) {
@@ -69,17 +69,17 @@ public class ProductDaoImpl implements ProductDao {
         Integer categoryId = product.getCategoryId();
 
         if (productid != null) {
-            condition.add("product_id = :productId");
+            condition.add("products.product_id = :productId");
             param.addValue("productId", productid);
         }
 
         if (!ParamUtil.isNullOrEmpty(productName)) {
-            condition.add("product_name LIKE :productName");
+            condition.add("products.product_name LIKE :productName");
             param.addValue("productName", "%" + productName + "%");
         }
 
-        if (categoryId != null) {
-            condition.add("category_id = :categoryId");
+        if (categoryId != 0) {
+            condition.add("products.category_id = :categoryId");
             param.addValue("categoryId", categoryId);
         }
 
