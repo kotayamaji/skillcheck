@@ -6,6 +6,8 @@ import java.util.Locale;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -146,6 +148,15 @@ public class ProductsController {
         // データセット
         model.addAttribute("product", product);
 
+        if (product.getUserId() == sessionInfo.getLoginUser().getUserId()) {
+            session.setAttribute("canDelete", true);
+        } else if (sessionInfo.getLoginUser().getRoleId() == 1) {
+            session.setAttribute("canDelete", true);
+        } else {
+            session.setAttribute("canDelete", false);
+        }
+        session.setAttribute("deleteId", productId);
+
         return "/products/detail";
     }
 
@@ -155,6 +166,51 @@ public class ProductsController {
     @PostMapping(value = "/products/delete", params = "back")
     public String searchResultBack(Model model) {
         return "/products/searchResult";
+    }
+
+    @PostMapping(value = "/products/delete", params = "delete")
+    public String delete(@ModelAttribute("registerForm") Registerform form) {
+        // セッション情報を取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+
+        if (sessionInfo.getLoginUser() == null) {
+            // ログインしていない場合はトップに戻る
+            return "/index";
+        }
+        productService.delete((Integer) session.getAttribute("deleteId"));
+        session.setAttribute("deleteId", null);
+        return "/products/menu";
+    }
+
+    @PostMapping("/products/register")
+    public String registerExecute(@Validated @ModelAttribute("registerForm") Registerform form,
+            BindingResult bindingResult,
+            @ModelAttribute("loginForm") LoginForm loginForm,
+            Model model) {
+
+        // セッション情報を取得
+        SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
+
+        if (sessionInfo.getLoginUser() == null) {
+            // ログインしていない場合はトップに戻る
+            return "/index";
+        }
+        // 入力値チェック
+        if (bindingResult.hasErrors()) {
+            return "/products/register";
+        }
+
+        // 入力値をEntityにセット
+        Product student = new Product();
+        student.setCategoryId(form.getCategoryId());
+        student.setRemarks(form.getRemarks());
+        student.setPrice(form.getPrice());
+        student.setProductName(form.getProductName());
+
+        // 登録処理
+        productService.insert(student);
+
+        return "/products/menu";
     }
 
 }

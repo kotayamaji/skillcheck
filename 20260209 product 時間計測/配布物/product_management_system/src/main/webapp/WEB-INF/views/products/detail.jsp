@@ -50,9 +50,10 @@
             <h1>
               <fmt:message key="title.products.detail" />
             </h1>
-
             <fieldset class="label">
+
               <div>
+
                 <label>
                   <fmt:message key="lbl.product.name" />
                   <fmt:message key="lbl.separator" />
@@ -60,7 +61,7 @@
                 <span>${fn:escapeXml(product.productName)}</span>
               </div>
               <div>
-                <label>
+                <label class="">
                   <fmt:message key="lbl.price" />
                   <fmt:message key="lbl.separator" />
                 </label>
@@ -80,11 +81,22 @@
                 </label>
                 <pre>${fn:escapeXml(product.remarks)}</pre>
               </div>
+              <div>
+                <label>
+                  登録者
+                </label>
+                <pre>${fn:escapeXml(product.userDispName)}</pre>
+              </div>
             </fieldset>
             <form action="/products/delete" method="post">
               <button name="back">
                 <fmt:message key="btn.back" />
               </button>
+              <c:if test="${canDelete}">
+                <button name="delete">
+                  削除
+                </button>
+              </c:if>
             </form>
           </body>
 

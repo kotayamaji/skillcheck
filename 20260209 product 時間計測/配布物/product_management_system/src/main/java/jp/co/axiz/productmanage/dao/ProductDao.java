@@ -11,4 +11,8 @@ public interface ProductDao {
     public List<Product> findAll();
 
     public List<Product> find(Product product);
+
+    public void insert(Product student);
+
+    public void delete(Integer attribute);
 }

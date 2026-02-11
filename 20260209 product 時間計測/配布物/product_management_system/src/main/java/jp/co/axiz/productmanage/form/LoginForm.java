@@ -1,12 +1,14 @@
 package jp.co.axiz.productmanage.form;
 
+import jakarta.validation.constraints.NotBlank;
+
 /*
  * ログイン画面用フォーム
  */
 public class LoginForm {
-
+    @NotBlank
     private String userName;
-
+    @NotBlank
     private String password;
 
     public String getUserName() {

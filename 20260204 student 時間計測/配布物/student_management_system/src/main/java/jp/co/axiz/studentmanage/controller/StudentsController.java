@@ -153,8 +153,9 @@ public class StudentsController {
      */
     @PostMapping("/students/register")
     public String registerExecute(@Validated @ModelAttribute("registerForm") RegisterForm form,
+            BindingResult bindingResult,
             @ModelAttribute("loginForm") LoginForm loginForm,
-            BindingResult bindingResult, Model model) {
+            Model model) {
 
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
@@ -186,10 +187,10 @@ public class StudentsController {
      * 編集処理
      */
     @PostMapping(value = "/students/searchResult", params = "updateStudentId")
-    public String updateExecute(Integer updateStudentId, 
+    public String updateExecute(Integer updateStudentId,
             @ModelAttribute("updateForm") UpdateForm form,
             @ModelAttribute("loginForm") LoginForm loginForm,
-        Model model) {
+            Model model) {
         // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
@@ -214,8 +215,7 @@ public class StudentsController {
                 student.getStudentName(),
                 student.getGrade(),
                 student.getMajorId(),
-                student.getHometown()
-                );
+                student.getHometown());
 
         sessionInfo.setPrevUpdatestudent(student);
 
@@ -232,13 +232,11 @@ public class StudentsController {
      * 更新内容確認画面遷移 (更新内容入力画面の確認ボタン押下時)
      */
     @PostMapping(value = "/students/search", params = "update")
-    public String updateConfirm(@Validated @ModelAttribute("updateForm") UpdateForm form, 
-    @ModelAttribute("searchForm") SearchForm searchform, 
-    @ModelAttribute("loginForm") LoginForm loginForm,
-    BindingResult bindingResult,
+    public String updateConfirm(@Validated @ModelAttribute("updateForm") UpdateForm form,
+            @ModelAttribute("searchForm") SearchForm searchform,
+            @ModelAttribute("loginForm") LoginForm loginForm,
+            BindingResult bindingResult,
             Model model) {
-
-
 
         // セッション情報取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
@@ -252,11 +250,11 @@ public class StudentsController {
             return "/students/update";
         }
 
-        //更新情報
-       Student student = new Student(sessionInfo.getPrevUpdatestudent().getStudentId(), form.getStudentName(),form.getGrade(),form.getMajorId(),form.getHometown());
-        
-      studentService.update(student);
-        
+        // 更新情報
+        Student student = new Student(sessionInfo.getPrevUpdatestudent().getStudentId(), form.getStudentName(),
+                form.getGrade(), form.getMajorId(), form.getHometown());
+
+        studentService.update(student);
 
         return "/students/search";
     }
@@ -266,9 +264,9 @@ public class StudentsController {
      */
     @PostMapping(value = "/students/search", params = "back")
     public String updateBack(@Validated @ModelAttribute("updateForm") UpdateForm form, BindingResult bindingResult,
-            @ModelAttribute("searchForm") SearchForm searchForm, 
-            @ModelAttribute("loginForm") LoginForm loginForm,Model model) {
-               // セッション情報を取得
+            @ModelAttribute("searchForm") SearchForm searchForm,
+            @ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+        // セッション情報を取得
         SessionInfo sessionInfo = ParamUtil.getSessionInfo(session);
 
         if (sessionInfo.getLoginUser() == null) {

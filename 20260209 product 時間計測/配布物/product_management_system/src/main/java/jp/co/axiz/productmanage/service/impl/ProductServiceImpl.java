@@ -43,4 +43,15 @@ public class ProductServiceImpl implements ProductService {
         return resultList.isEmpty() ? null : resultList.get(0);
     }
 
+    @Override
+    public void insert(Product student) {
+        productDao.insert(student);
+    }
+
+    @Override
+    public void delete(Integer attribute) {
+        // TODO Auto-generated method stub
+        productDao.delete(attribute);
+    }
+
 }

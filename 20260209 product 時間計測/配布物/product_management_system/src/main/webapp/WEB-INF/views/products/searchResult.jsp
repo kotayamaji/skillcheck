@@ -64,6 +64,10 @@
                   <th>
                     分類
                   </th>
+                  <th>
+                    登録者
+                  </th>
+
                 </tr>
               </thead>
               <tbody>
@@ -74,6 +78,7 @@
                     </td>
                     <td>${fn:escapeXml(product.price)}</td>
                     <td>${fn:escapeXml(product.categoryName)}</td>
+                    <td>${fn:escapeXml(product.userDispName)}</td>
                   </tr>
                 </c:forEach>
               </tbody>

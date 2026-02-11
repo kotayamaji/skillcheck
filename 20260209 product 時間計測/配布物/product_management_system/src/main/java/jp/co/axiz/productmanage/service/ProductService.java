@@ -13,4 +13,8 @@ public interface ProductService {
     public List<Product> find(Product product);
 
     public Product findByProductId(Integer productId);
+
+    public void insert(Product student);
+
+    public void delete(Integer attribute);
 }

@@ -38,12 +38,14 @@
                     <fmt:message key="lbl.user.name" />
                   </label>
                   <form:input path="userName" autocomplete="username" />
+                  <form:errors path="userName" class="error" />
                 </div>
                 <div>
                   <label>
                     <fmt:message key="lbl.pass" />
                   </label>
                   <form:password path="password" autocomplete="current-password" />
+                  <form:errors path="password" class="error" />
                 </div>
               </fieldset>
               <form:button>

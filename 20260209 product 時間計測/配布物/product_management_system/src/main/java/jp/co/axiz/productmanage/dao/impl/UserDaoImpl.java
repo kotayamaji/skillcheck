@@ -26,9 +26,9 @@ public class UserDaoImpl implements UserDao {
     // products.category_id = categories.category_id INNER JOIN roles ON
     // roles.role_id = users.role_id "
 
-    private static final String SELECT_BY_USER_NAME_AND_PASSWORD = "SELECT users.user_name, users.password, users.disp_name, users.role_id, users.is_active, roles.role_name FROM users INNER JOIN roles ON roles.role_id = users.role_id "
+    private static final String SELECT_BY_USER_NAME_AND_PASSWORD = "SELECT users.user_id, users.user_name, users.password, users.disp_name, users.role_id, users.is_active, roles.role_name FROM users INNER JOIN roles ON roles.role_id = users.role_id "
             +
-            "WHERE user_name = :userName AND password = :password";
+            "WHERE user_name = :userName AND password = :password AND is_active = 1 ";
 
     private static final String CATEGORY = "SELECT * FROM categories";
 

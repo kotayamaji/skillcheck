@@ -98,7 +98,6 @@ public class PetDaoImpl implements PetDao {
         param.addValue("description", pet.getDescription());
         param.addValue("user_id", pet.getUserId());
         jdbcTemplate.update(INSERT, param);
-        ;
     }
 
     @Override

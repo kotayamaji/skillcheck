@@ -48,26 +48,32 @@
                         </header>
 
                         <h1>
-                            <fmt:message key="title.products.search" />
+                            登録
                         </h1>
+                        <p>
+                            <span style="color: red">※</span>は必須です。
+                        </p>
 
                         <c:if test="${not empty errMsg}">
                             <p class="error">${fn:escapeXml(errMsg)}</p>
                         </c:if>
 
-                        <form:form action="/products/searchResult" modelAttribute="registerForm" method="get">
+                        <form:form action="/products/register" modelAttribute="registerForm" method="post">
                             <fieldset>
                                 <div>
-                                    <label>
+                                    <label class="required">
                                         商品名
                                     </label>
                                     <form:input path="productName" />
+                                    <form:errors path="productName" class="error" />
+
                                 </div>
                                 <div>
-                                    <label>
+                                    <label class="required">
                                         価格
                                     </label>
                                     <form:input path="price" />
+                                    <form:errors path="price" class="error" />
                                 </div>
                                 <div>
                                     <label>分類</label>
@@ -79,12 +85,12 @@
                                 <div>
                                     <label>
                                         備考
-                                        <form:textarea path="description" />
+                                        <form:textarea path="remarks" />
                                     </label>
                                 </div>
                             </fieldset>
                             <form:button>
-                                <fmt:message key="btn.search" />
+                                登録
                             </form:button>
                         </form:form>
                     </body>
