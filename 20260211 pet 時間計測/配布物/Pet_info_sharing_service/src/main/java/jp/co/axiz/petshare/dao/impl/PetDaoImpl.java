@@ -71,7 +71,7 @@ public class PetDaoImpl implements PetDao {
             param.addValue("name", name);
         }
 
-        if (pet.getAnimalTypeId() != null) {
+        if (pet.getAnimalTypeId() != null && pet.getAnimalTypeId() != 0) {
             condition.add("pets.animal_type_id = :animalTypeId");
             param.addValue("animalTypeId", pet.getAnimalTypeId());
         }
