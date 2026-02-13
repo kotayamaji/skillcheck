@@ -23,7 +23,7 @@ public class ProductDaoImpl implements ProductDao {
     private static final String SELECT = "SELECT users.user_name, users.password, users.disp_name userDispName , users.role_id, users.is_active, roles.role_name, products.product_id, products.product_name, products.price, product_management_system.products.remarks, product_management_system.products.user_id, product_management_system.products.is_deleted, product_management_system.categories.category_name, product_management_system.products.category_id FROM users INNER JOIN roles ON roles.role_id = users.role_id INNER JOIN product_management_system.products ON product_management_system.products.user_id = users.user_id INNER JOIN product_management_system.categories ON product_management_system.products.category_id = product_management_system.categories.category_id ";
 
     private static final String ORDER_BY = " ORDER BY product_id";
-    private static final String INSERT = "INSERT INTO product_management_system.products(product_name, price, category_id, remarks) VALUES (:product_name, :price, :category_id, :remarks)";
+    private static final String INSERT = "INSERT INTO product_management_system.products(product_name, price, category_id, remarks, user_id ) VALUES (:product_name, :price, :category_id, :remarks , :userId )";
 
     private static final String DELETE = "UPDATE product_management_system.products SET is_deleted = '1' WHERE product_id = :product_id";
 
@@ -102,12 +102,13 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void insert(Product student) {
-        // :product_name, :price, :category_id, :remarks
+        // :product_name, :price, :category_id, :remarks :userId
         MapSqlParameterSource param = new MapSqlParameterSource();
         param.addValue("product_name", student.getProductName());
         param.addValue("price", student.getPrice());
         param.addValue("category_id", student.getCategoryId());
         param.addValue("remarks", student.getRemarks());
+        param.addValue("userId", student.getUserId());
         jdbcTemplate.update(INSERT, param);
     }
 

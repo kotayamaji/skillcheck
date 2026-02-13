@@ -206,6 +206,7 @@ public class ProductsController {
         student.setRemarks(form.getRemarks());
         student.setPrice(form.getPrice());
         student.setProductName(form.getProductName());
+        student.setUserId(sessionInfo.getLoginUser().getUserId());
 
         // 登録処理
         productService.insert(student);
